@@ -1,0 +1,8 @@
+name: MCFurniture
+version: 0.0.1
+src-namespace-prefix: DavyCraft648\MCFurniture
+main: DavyCraft648\MCFurniture\Main
+api: [5.0.0]
+description: A furniture plugin for PocketMine-MP
+author: DavyCraft648
+website: https://github.com/DavyCraft648/MCFurniture
