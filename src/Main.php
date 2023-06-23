@@ -5,14 +5,13 @@ namespace DavyCraft648\MCFurniture;
 
 use customiesdevs\customies\block\{CustomiesBlockFactory, Material, Model};
 use customiesdevs\customies\item\CreativeInventoryInfo;
-use DavyCraft648\MCFurniture\block\{Bin, Candle, CeilingLight, Chair, Chimney, DigitalClock, FairyLight, Table};
+use DavyCraft648\MCFurniture\block\{BarStool, BedsideCabinet, Bin, Blinds, Candle, CeilingLight, Chair, Chimney,
+	DigitalClock, FairyLight, Lamp, Table};
 use pocketmine\block\{BlockBreakInfo, BlockIdentifier, BlockTypeInfo};
-use pocketmine\event\EventPriority;
-use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\math\Vector3;
 use pocketmine\resourcepacks\ZippedResourcePack;
-use pocketmine\world\format\io\GlobalBlockStateHandlers;
 use Symfony\Component\Filesystem\Path;
+use function array_merge;
 
 class Main extends \pocketmine\plugin\PluginBase{
 
@@ -22,9 +21,9 @@ class Main extends \pocketmine\plugin\PluginBase{
 		$rpManager->setResourceStack(array_merge($rpManager->getResourceStack(), [new ZippedResourcePack(Path::join($this->getDataFolder(), "MCFurniture.mcpack"))]));
 		(new \ReflectionProperty($rpManager, "serverForceResources"))->setValue($rpManager, true);
 
-		$this->getServer()->getPluginManager()->registerEvent(PlayerInteractEvent::class, function(PlayerInteractEvent $event): void {
-			$event->getPlayer()->sendMessage(GlobalBlockStateHandlers::getSerializer()->serialize($event->getBlock()->getStateId())->toNbt()->toString());
-		}, EventPriority::NORMAL, $this);
+		// $this->getServer()->getPluginManager()->registerEvent(PlayerInteractEvent::class, function(PlayerInteractEvent $event) : void{
+		// 	$event->getPlayer()->sendMessage(GlobalBlockStateHandlers::getSerializer()->serialize($event->getBlock()->getStateId())->toNbt()->toString());
+		// }, EventPriority::NORMAL, $this);
 
 		CustomiesBlockFactory::getInstance()->registerBlock(
 			static fn(int $id) => new Bin(new BlockIdentifier($id), "Bin", new BlockTypeInfo(new BlockBreakInfo(0.3))),
@@ -48,6 +47,13 @@ class Main extends \pocketmine\plugin\PluginBase{
 		);
 
 		foreach(["acacia", "andesite", "birch", "dark_oak", "diorite", "granite", "jungle", "oak", "spruce", "stone"] as $variant){
+			CustomiesBlockFactory::getInstance()->registerBlock(
+				static fn(int $id) => new BedsideCabinet(new BlockIdentifier($id), "Bedside Cabinet", new BlockTypeInfo(new BlockBreakInfo(2))),
+				"mcfurniture:{$variant}_bedside_cabinet",
+				new Model([new Material(Material::TARGET_ALL, "bedside_cabinet_$variant", Material::RENDER_METHOD_ALPHA_TEST)], "geometry.bedside_cabinet", new Vector3(-8, 0, -8), new Vector3(16, 12, 16)),
+				new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE)
+			);
+
 			CustomiesBlockFactory::getInstance()->registerBlock(
 				static fn(int $id) => new Chair(new BlockIdentifier($id), "Chair", new BlockTypeInfo(new BlockBreakInfo(0.3))),
 				"mcfurniture:{$variant}_chair",
@@ -75,9 +81,23 @@ class Main extends \pocketmine\plugin\PluginBase{
 			        "orange", "pink", "purple", "red", "white", "yellow"
 		        ] as $variant){
 			CustomiesBlockFactory::getInstance()->registerBlock(
+				static fn(int $id) => new BarStool(new BlockIdentifier($id), "Bar Stool", new BlockTypeInfo(new BlockBreakInfo(0.3))),
+				"mcfurniture:{$variant}_clay_bar_stool",
+				new Model([new Material(Material::TARGET_ALL, "{$variant}_clay_bar_stool", Material::RENDER_METHOD_ALPHA_TEST)], "geometry.bar_stool", new Vector3(-8, 0, -8), new Vector3(16, 12, 16)),
+				new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE)
+			);
+
+			CustomiesBlockFactory::getInstance()->registerBlock(
 				static fn(int $id) => new DigitalClock(new BlockIdentifier($id), "Digital Clock", new BlockTypeInfo(new BlockBreakInfo(0.3))),
 				"mcfurniture:{$variant}_digital_clock",
 				new Model([new Material(Material::TARGET_ALL, "{$variant}_digital_clock", Material::RENDER_METHOD_ALPHA_TEST)], "geometry.clock_0600", new Vector3(-4, 0, -1), new Vector3(8, 5, 3)),
+				new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE)
+			);
+
+			CustomiesBlockFactory::getInstance()->registerBlock(
+				static fn(int $id) => new Lamp(new BlockIdentifier($id), "Lamp", new BlockTypeInfo(new BlockBreakInfo(0.3))),
+				"mcfurniture:{$variant}_lamp",
+				new Model([new Material(Material::TARGET_ALL, "{$variant}_lamp", Material::RENDER_METHOD_ALPHA_TEST)], "geometry.lamp"),
 				new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE)
 			);
 		}
@@ -90,6 +110,13 @@ class Main extends \pocketmine\plugin\PluginBase{
 		);
 
 		foreach(["acacia", "birch", "dark_oak", "jungle", "oak", "spruce"] as $variant){
+			CustomiesBlockFactory::getInstance()->registerBlock(
+				static fn(int $id) => new Blinds(new BlockIdentifier($id), "Blinds", new BlockTypeInfo(new BlockBreakInfo(0.3))),
+				"mcfurniture:{$variant}_blinds",
+				new Model([new Material(Material::TARGET_ALL, "{$variant}_blinds", Material::RENDER_METHOD_ALPHA_TEST)], "geometry.blinds_open", new Vector3(-8, 0, -8), new Vector3(16, 16, 1)),
+				new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE)
+			);
+
 			CustomiesBlockFactory::getInstance()->registerBlock(
 				static fn(int $id) => new Chair(new BlockIdentifier($id), "Park Bench", new BlockTypeInfo(new BlockBreakInfo(0.3))),
 				"mcfurniture:{$variant}_park_bench",

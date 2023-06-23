@@ -4,7 +4,8 @@ declare(strict_types=1);
 namespace DavyCraft648\MCFurniture\block;
 
 use customiesdevs\customies\block\permutations\{BlockProperty, Permutation};
-use pocketmine\block\{Block, Transparent, utils\HorizontalFacingTrait};
+use pocketmine\block\Block;
+use pocketmine\block\utils\HorizontalFacingTrait;
 use pocketmine\data\bedrock\block\{BlockStateNames, convert\BlockStateReader, convert\BlockStateWriter};
 use pocketmine\data\runtime\RuntimeDataDescriber;
 use pocketmine\item\Item;
@@ -13,32 +14,20 @@ use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\player\Player;
 use pocketmine\world\BlockTransaction;
 
-class DigitalClock extends Transparent implements \customiesdevs\customies\block\permutations\Permutable{
+class BedsideCabinet extends \pocketmine\block\Transparent implements \customiesdevs\customies\block\permutations\Permutable{
 	use HorizontalFacingTrait;
 
-	private int $time = 0;
+	private bool $open = false;
 
 	public function getBlockProperties() : array{
 		return [
-			new BlockProperty(BlockStateNames::FACING_DIRECTION, [2, 3, 4, 5]),
-			new BlockProperty("mcfurniture:clock_time", [0, 1, 2, 3])
+			new BlockProperty(BlockStateNames::OPEN_BIT, [false, true]),
+			new BlockProperty(BlockStateNames::FACING_DIRECTION, [2, 3, 4, 5])
 		];
 	}
 
 	public function getPermutations() : array{
 		return [
-			(new Permutation("q.block_property('mcfurniture:clock_time') == 0"))
-				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.clock_0600")),
-			(new Permutation("q.block_property('mcfurniture:clock_time') == 1"))
-				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.clock_1200")),
-			(new Permutation("q.block_property('mcfurniture:clock_time') == 2"))
-				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.clock_1800")),
-			(new Permutation("q.block_property('mcfurniture:clock_time') == 3"))
-				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.clock_2400")),
 			(new Permutation("q.block_property('facing_direction') == 2"))
 				->withComponent("minecraft:transformation", CompoundTag::create()
 					->setInt("RX", 0)
@@ -99,24 +88,26 @@ class DigitalClock extends Transparent implements \customiesdevs\customies\block
 				->setFloat("x", 0)
 				->setFloat("y", 90)
 				->setFloat("z", 0))*/,
+			(new Permutation("q.block_property('open_bit') == false"))
+				->withComponent("minecraft:geometry", CompoundTag::create()
+					->setString("value", "geometry.bedside_cabinet")),
+			(new Permutation("q.block_property('open_bit') == true"))
+				->withComponent("minecraft:geometry", CompoundTag::create()
+					->setString("value", "geometry.bedside_cabinet_open")),
 		];
 	}
 
 	public function getCurrentBlockProperties() : array{
-		return [$this->facing, $this->time];
+		return [$this->open, $this->facing];
 	}
 
-	public function setTime(int $time) : DigitalClock{
-		$this->time = $time;
+	public function setOpen(bool $open = true) : BedsideCabinet{
+		$this->open = $open;
 		return $this;
 	}
 
-	public function getTime() : int{
-		return $this->time;
-	}
-
-	public function getLightLevel() : int{
-		return 2;
+	public function isOpen() : bool{
+		return $this->open;
 	}
 
 	public function place(BlockTransaction $tx, Item $item, Block $blockReplace, Block $blockClicked, int $face, Vector3 $clickVector, ?Player $player = null) : bool{
@@ -127,23 +118,23 @@ class DigitalClock extends Transparent implements \customiesdevs\customies\block
 	}
 
 	public function onInteract(Item $item, int $face, Vector3 $clickVector, ?Player $player = null, array &$returnedItems = []) : bool{
-		$this->time >= 3 ? $this->time = 0 : ++$this->time;
-		$this->position->getWorld()->setBlock($this->position, $this);
+		$this->position->getWorld()->setBlock($this->position, $this->setOpen(!$this->open));
+		//TODO: inventory
 		return true;
 	}
 
 	protected function describeBlockOnlyState(RuntimeDataDescriber $w) : void{
+		$w->bool($this->open);
 		$w->horizontalFacing($this->facing);
-		$w->int(2, $this->time);
 	}
 
 	public function serializeState(BlockStateWriter $blockStateOut) : void{
-		$blockStateOut->writeFacingDirection($this->getFacing())
-			->writeInt("mcfurniture:clock_time", $this->getTime());
+		$blockStateOut->writeBool(BlockStateNames::OPEN_BIT, $this->isOpen())
+			->writeHorizontalFacing($this->getFacing());
 	}
 
 	public function deserializeState(BlockStateReader $blockStateIn) : void{
-		$this->setFacing($blockStateIn->readHorizontalFacing())
-			->setTime($blockStateIn->readInt("mcfurniture:clock_time"));
+		$this->setOpen($blockStateIn->readBool(BlockStateNames::OPEN_BIT))
+			->setFacing($blockStateIn->readHorizontalFacing());
 	}
 }

@@ -12,7 +12,7 @@
   </component>
   <component name="PhpIncludePathManager">
     <include_path>
-      <path value="$PROJECT_DIR$/../../../PMMPLibs/pm5" />
+      <path value="$PROJECT_DIR$/../../../PMMPLibs/pm5-ng" />
       <path value="$PROJECT_DIR$/../../../Customies2/plugins/Customies" />
     </include_path>
   </component>
