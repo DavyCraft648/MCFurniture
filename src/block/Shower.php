@@ -85,6 +85,7 @@ class Shower extends \pocketmine\block\Transparent implements Permutable{
 				->setFloat("z", 0))*/,
 		];
 	}
+
 	public function getCurrentBlockProperties() : array{
 		return [$this->facing];
 	}
