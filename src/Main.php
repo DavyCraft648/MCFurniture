@@ -5,10 +5,21 @@ namespace DavyCraft648\MCFurniture;
 
 use customiesdevs\customies\block\{CustomiesBlockFactory, Material, Model};
 use customiesdevs\customies\item\CreativeInventoryInfo;
-use DavyCraft648\MCFurniture\block\{BarStool, BedsideCabinet, Bin, Blinds, Candle, CeilingLight, Chair, Chimney,
-	DigitalClock, FairyLight, Lamp, Table};
+use DavyCraft648\MCFurniture\block\{BarStool,
+    BedsideCabinet,
+    Bin,
+    Blinds,
+    Candle,
+    CeilingLight,
+    Chair,
+    Chimney,
+    DigitalClock,
+    FairyLight,
+    Lamp,
+    Table};
 use pocketmine\block\{BlockBreakInfo, BlockIdentifier, BlockTypeInfo};
 use pocketmine\block\{Block, Opaque, Slab, Stair};
+use DavyCraft648\MCFurniture\utils\SitUtils;
 use pocketmine\entity\Entity;
 use pocketmine\event\EventPriority;
 use pocketmine\event\player\PlayerInteractEvent;
@@ -37,8 +48,18 @@ class Main extends \pocketmine\plugin\PluginBase{
 
     public array $sittingData = [];
 
+    public SitUtils $sitUtils;
+
+    private static self $instance;
+
+    protected function onLoad(): void
+    {
+        self::$instance = $this;
+    }
+
     protected function onEnable() : void{
         $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
+        $this->sitUtils = new SitUtils($this);
 		$this->saveResource("MCFurniture.mcpack");
 		$rpManager = $this->getServer()->getResourcePackManager();
 		$rpManager->setResourceStack(array_merge($rpManager->getResourceStack(), [new ZippedResourcePack(Path::join($this->getDataFolder(), "MCFurniture.mcpack"))]));
@@ -99,6 +120,13 @@ class Main extends \pocketmine\plugin\PluginBase{
 			new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_CONSTRUCTION, CreativeInventoryInfo::NONE)
 		);
 
+        CustomiesBlockFactory::getInstance()->registerBlock(
+            static fn(int $id) => new Chair(new BlockIdentifier($id), "Toilet", new BlockTypeInfo(new BlockBreakInfo(0.3))),
+            "mcfurniture:toilet",
+            new Model([new Material(Material::TARGET_ALL, "toilet", Material::RENDER_METHOD_ALPHA_TEST)], "geometry.toilet", new Vector3(-8, 0, -8), new Vector3(16, 16, 16)),
+            new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE)
+        );
+
 		foreach([
 			        "black", "blue", "brown", "cyan", "gray", "green", "light_blue", "light_gray", "lime", "magenta",
 			        "orange", "pink", "purple", "red", "white", "yellow"
@@ -149,126 +177,7 @@ class Main extends \pocketmine\plugin\PluginBase{
 		}
 	}
 
-    // SIT FUNCTION
-
-    public function isSitting(Player $player): bool {
-        return isset($this->sittingData[strtolower($player->getName())]);
-    }
-
-    public function unsetSit(Player $player): void {
-        $pk1 = new RemoveActorPacket();
-        $pk1->actorUniqueId = $this->sittingData[strtolower($player->getName())]['eid'];
-
-        $pk = new SetActorLinkPacket();
-        $pk->link = new EntityLink($this->sittingData[strtolower($player->getName())]['eid'], $player->getId(), EntityLink::TYPE_REMOVE, true, true);
-
-        unset($this->sittingData[strtolower($player->getName())]);
-
-        $player->getNetworkProperties()->setGenericFlag(EntityMetadataFlags::RIDING, false);
-        $player->sendMessage(TextFormat::colorize($this->getConfig()->get("no-longer-sit-message", "&6You are no longer sitting!")));
-
-        foreach ($this->getServer()->getOnlinePlayers() as $viewer){
-            $viewer->getNetworkSession()->sendDataPacket($pk1);
-            $viewer->getNetworkSession()->sendDataPacket($pk);
-        }
-    }
-
-    public function sit(Player $player, Block $block): void {
-//        if ($block instanceof Stair or $block instanceof Slab) {
-//            $pos = $block->getPosition()->add(0.5, 1.5, 0.5);
-//        } elseif ($block instanceof Opaque) {
-//            $pos = $block->getPosition()->add(0.5, 2.1, 0.5);
-//        } else {
-//            $player->sendMessage(TextFormat::colorize($this->getConfig()->get("cannot-be-occupied-sit", "&cYou can only sit on the Opaque, Stair, or Slab block!")));
-//            return;
-//        }
-        if($block instanceof Chair){
-            $pos = $block->getPosition()->add(0.5, 1.6, 0.5);
-        } else{
-            return;
-        }
-
-        foreach ($this->sittingData as $playerName => $data) {
-            if ($pos->equals($data['pos'])) {
-                $player->sendMessage("Tempat ini telah terisi player lain");
-                return;
-            }
-        }
-
-        if ($this->isSitting($player)) {
-            $player->sendMessage("kamu sudah duduk");
-            return;
-        }
-
-        $this->setSit($player, $this->getServer()->getOnlinePlayers(), new Position($pos->x, $pos->y, $pos->z, $this->getServer()->getWorldManager()->getWorldByName($player->getWorld()->getFolderName())));
-
-        $player->sendMessage("kamu sedang duduk!");
-        $player->sendTip("sneak untuk berdiri");
-    }
-
-    public function setSit(Player $player, array $viewers, Position $pos, ?int $eid = null): void {
-        if ($eid === null) {
-            $eid = Entity::nextRuntimeId();
-        }
-
-        $pk = new AddActorPacket();
-        $pk->actorRuntimeId = $eid;
-        $pk->actorUniqueId = $eid;
-        $pk->type = EntityIds::WOLF;
-
-        $pk->position = $pos->asVector3();
-        $pk->metadata = [
-            EntityMetadataProperties::FLAGS => new LongMetadataProperty(1 << EntityMetadataFlags::IMMOBILE | 1 << EntityMetadataFlags::SILENT | 1 << EntityMetadataFlags::INVISIBLE),
-        ];
-        $pk->syncedProperties = new PropertySyncData([], []);
-
-        $link = new SetActorLinkPacket();
-        $link->link = new EntityLink($eid, $player->getId(), EntityLink::TYPE_RIDER, true, true);
-        $player->getNetworkProperties()->setGenericFlag(EntityMetadataFlags::RIDING, true);
-
-//        $this->getServer()->broadcastPackets($viewers, [$pk, $link]);
-        foreach ($viewers as $viewer){
-            $viewer->getNetworkSession()->sendDataPacket($pk);
-            $viewer->getNetworkSession()->sendDataPacket($link);
-        }
-
-        if ($this->isSitting($player)) {
-            return;
-        }
-
-        $this->sittingData[strtolower($player->getName())] = [
-            'eid' => $eid,
-            'pos' => $pos
-        ];
-    }
-
-    public function isToggleSit(Player $player): bool {
-        return in_array(strtolower($player->getName()), $this->toggleSit, true);
-    }
-
-    public function unsetToggleSit(Player $player): void {
-        unset($this->toggleSit[strtolower($player->getName())]);
-
-        $player->sendMessage("&6You have enabled tap-on-block sit");
-    }
-
-    public function setToggleSit(Player $player): void {
-        $this->toggleSit[] = strtolower($player->getName());
-
-        $player->sendMessage("&6You have disabled tap-on-block sit!");
-    }
-
-    public function optimizeRotation(Player $player): void {
-        $pk = new MoveActorAbsolutePacket();
-        $pk->position = $this->sittingData[strtolower($player->getName())]['pos'];
-        $pk->actorRuntimeId = $this->sittingData[strtolower($player->getName())]['eid'];
-        $pk->pitch = $player->getLocation()->getPitch();
-        $pk->yaw = $player->getLocation()->getYaw();
-        $pk->headYaw = $player->getLocation()->getYaw();
-
-//        $this->getServer()->broadcastPackets($this->getServer()->getOnlinePlayers(), [$pk]);
-        foreach ($this->getServer()->getOnlinePlayers() as $viewer){
-            $viewer->getNetworkSession()->sendDataPacket($pk);
-        }
+    public static function getInstance(): self{
+        return self::$instance;
     }
 }
