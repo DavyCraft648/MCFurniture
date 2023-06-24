@@ -20,6 +20,7 @@ class Shower extends \pocketmine\block\Transparent implements Permutable{
 			new BlockProperty(BlockStateNames::FACING_DIRECTION, [2, 3, 4, 5])
 		];
 	}
+
 	public function getPermutations() : array{
 		return [
 			(new Permutation("q.block_property('facing_direction'') == 2"))
