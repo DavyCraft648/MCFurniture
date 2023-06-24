@@ -11,9 +11,7 @@ use pocketmine\data\bedrock\block\convert\BlockStateWriter;
 use pocketmine\data\runtime\RuntimeDataDescriber;
 use pocketmine\nbt\tag\CompoundTag;
 
-class ShowerHead extends \pocketmine\block\Transparent implements \customiesdevs\customies\block\permutations\Permutable
-{
-
+class ShowerHead extends \pocketmine\block\Transparent implements \customiesdevs\customies\block\permutations\Permutable{
 	use HorizontalFacingTrait;
 
 	private bool $water = false;
