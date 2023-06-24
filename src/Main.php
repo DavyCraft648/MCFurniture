@@ -16,9 +16,8 @@ use function str_replace;
 
 class Main extends \pocketmine\plugin\PluginBase{
 
-
-    protected function onEnable() : void{
-        $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
+	protected function onEnable() : void{
+		$this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
 		$this->saveResource("MCFurniture.mcpack");
 		$rpManager = $this->getServer()->getResourcePackManager();
 		$rpManager->setResourceStack(array_merge($rpManager->getResourceStack(), [new ZippedResourcePack(Path::join($this->getDataFolder(), "MCFurniture.mcpack"))]));
