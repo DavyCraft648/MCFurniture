@@ -64,7 +64,7 @@ class SitUtils
             return;
         }
 
-        self::setSit($player, $player->getViewers(), new Position($pos->x, $pos->y, $pos->z, Server::getInstance()->getWorldManager()->getWorldByName($player->getWorld()->getFolderName())));
+	    self::setSit($player, $player->getViewers(), Position::fromObject($pos, $player->getWorld()));
 
         $player->sendMessage("You are now sitting");
         $player->sendTip("Sneak to stand");
@@ -90,10 +90,6 @@ class SitUtils
 			new PropertySyncData([], []),
 			[new EntityLink($eid, $player->getId(), EntityLink::TYPE_RIDER, true, true)]
 		);
-
-		$link = SetActorLinkPacket::create(
-			new EntityLink($eid, $player->getId(), EntityLink::TYPE_RIDER, true, true)
-		);
         $player->getNetworkProperties()->setGenericFlag(EntityMetadataFlags::RIDING, true);
 
 		$player->getWorld()->broadcastPacketToViewers($player->getPosition(), $pk);
@@ -117,8 +113,7 @@ class SitUtils
 		    $player->getLocation()->getYaw(),
 		    0
 	    );
-
-
+	    $player->getWorld()->broadcastPacketToViewers($player->getPosition(), $pk);
     }
 
 }
