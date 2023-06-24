@@ -97,7 +97,7 @@ class Main extends \pocketmine\plugin\PluginBase{
         CustomiesBlockFactory::getInstance()->registerBlock(
             static fn(int $id) => new Chair(new BlockIdentifier($id), "Toilet", new BlockTypeInfo(new BlockBreakInfo(0.3))),
             "mcfurniture:toilet",
-            new Model([new Material(Material::TARGET_ALL, "toilet", Material::RENDER_METHOD_ALPHA_TEST)], "geometry.toilet", new Vector3(-8, 0, -8), new Vector3(16, 12, 16)),
+            new Model([new Material(Material::TARGET_ALL, "black_kitchen_counter_sink", Material::RENDER_METHOD_ALPHA_TEST)], "geometry.toilet", new Vector3(-8, 0, -8), new Vector3(16, 12, 16)),
             new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE)
         );
 
