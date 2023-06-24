@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DavyCraft648\MCFurniture\utils;
 
+use DavyCraft648\MCFurniture\block\BarStool;
 use DavyCraft648\MCFurniture\block\Chair;
 use DavyCraft648\MCFurniture\Main;
 use pocketmine\block\Block;
@@ -52,7 +53,7 @@ class SitUtils
     }
 
     public static function sit(Player $player, Block $block): void {
-        if($block instanceof Chair){
+        if($block instanceof Chair or $block instanceof BarStool){
             $pos = $block->getPosition()->add(0.5, 1.6, 0.5);
         } else{
             return;

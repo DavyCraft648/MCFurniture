@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DavyCraft648\MCFurniture;
 
+use DavyCraft648\MCFurniture\block\BarStool;
 use DavyCraft648\MCFurniture\block\Chair;
 use DavyCraft648\MCFurniture\utils\SitUtils;
 use pocketmine\event\block\BlockBreakEvent;
@@ -35,7 +36,7 @@ class EventListener implements \pocketmine\event\Listener
 
                 if ($sittingPlayer !== null) {
                     $block = $sittingPlayer->getWorld()->getBlock($sittingPlayer->getPosition()->add(0, -0.3, 0));
-                    if ($block instanceof Chair){
+                    if ($block instanceof Chair or $block instanceof BarStool){
                         $pos = $block->getPosition()->add(0.5, 1.6, 0.5);
                     } else {
                         return;
@@ -81,7 +82,7 @@ class EventListener implements \pocketmine\event\Listener
 
     public function onBlockBreak(BlockBreakEvent $event): void {
         $block = $event->getBlock();
-        if ($block instanceof Chair){
+        if ($block instanceof Chair or $block instanceof BarStool){
             $pos = $block->getPosition()->add(0.5, 1.6, 0.5);
         } else {
             return;
