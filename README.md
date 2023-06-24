@@ -4,24 +4,23 @@ A furniture plugin for PocketMine-MP (WIP)
 
 ## Block List
 
-- [ ] Basin
-- [ ] Bath
+- [x] Basin
+- [x] Bath
 - [x] Bedside Cabinet
 - [x] Bin
 - [x] Blinds
-- [ ] Cabinet
+- [x] Cabinet
 - [x] Candle
 - [x] Ceiling Light
 - [x] Chair
 - [x] Chimney
-- [ ] Christmas Tree
+- [x] Christmas Tree
 - [x] Clay Bar Stool
 - [ ] Clay Modern Couch
 - [ ] Coffee Table
 - [ ] Cooler
 - [ ] Counter Drawer
 - [ ] Curtains
-- [ ] Dark Cabinet
 - [ ] Desk
 - [ ] Desk Cabinet
 - [x] Digital Clock
@@ -53,12 +52,12 @@ A furniture plugin for PocketMine-MP (WIP)
 - [ ] Shower Head
 - [ ] Sofa
 - [x] Table
-- [ ] Terracotta Cabinet
+- [x] Terracotta Cabinet
 - [ ] Toaster
 - [ ] Toilet
 - [ ] Upgraded Fence
 - [ ] Upgraded Gate
-- [ ] Wall Cabinet
+- [x] Wall Cabinet
 - [ ] Wreath
 
 ## Item List
