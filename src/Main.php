@@ -5,18 +5,6 @@ namespace DavyCraft648\MCFurniture;
 
 use customiesdevs\customies\block\{CustomiesBlockFactory, Material, Model};
 use customiesdevs\customies\item\CreativeInventoryInfo;
-use DavyCraft648\MCFurniture\block\{BarStool,
-    BedsideCabinet,
-    Bin,
-    Blinds,
-    Candle,
-    CeilingLight,
-    Chair,
-    Chimney,
-    DigitalClock,
-    FairyLight,
-    Lamp,
-    Table};
 use pocketmine\block\{BlockBreakInfo, BlockIdentifier, BlockTypeInfo};
 use DavyCraft648\MCFurniture\utils\SitUtils;
 use pocketmine\math\Vector3;
