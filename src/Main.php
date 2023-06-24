@@ -6,7 +6,8 @@ namespace DavyCraft648\MCFurniture;
 use customiesdevs\customies\block\{CustomiesBlockFactory, Material, Model};
 use customiesdevs\customies\item\CreativeInventoryInfo;
 use DavyCraft648\MCFurniture\block\{BarStool, Basin, Bath, BedsideCabinet, Bin, Blinds, Cabinet, Candle, CeilingLight,
-	Chair, Chimney, ChristmasTree, DigitalClock, FairyLight, Lamp, StoneCabinet, Table, WallCabinet};
+	Chair, Chimney, ChristmasTree, DigitalClock, FairyLight, Lamp, Shower, ShowerHead, StoneCabinet, Table,
+	WallCabinet};
 use pocketmine\block\{BlockBreakInfo, BlockIdentifier, BlockTypeInfo};
 use pocketmine\math\Vector3;
 use pocketmine\resourcepacks\ZippedResourcePack;
@@ -31,6 +32,21 @@ class Main extends \pocketmine\plugin\PluginBase{
 			static fn(int $id) => new Basin(new BlockIdentifier($id), "Basin", new BlockTypeInfo(new BlockBreakInfo(2))),
 			"mcfurniture:basin",
 			new Model([new Material(Material::TARGET_ALL, "black_kitchen_counter_sink", Material::RENDER_METHOD_ALPHA_TEST)], "geometry.basin", new Vector3(-8, 0, -8), new Vector3(16, 16, 16)),
+			new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE),
+		);
+
+
+		CustomiesBlockFactory::getInstance()->registerBlock(
+			static fn(int $id) => new Shower(new BlockIdentifier($id), "Shower", new BlockTypeInfo(new BlockBreakInfo(2))),
+			"mcfurniture:shower",
+			new Model([new Material(Material::TARGET_ALL, "shower", Material::RENDER_METHOD_BLEND)], "geometry.shower", new Vector3(-8, 0, -8), new Vector3(16, 1, 16)),
+			new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE),
+		);
+
+		CustomiesBlockFactory::getInstance()->registerBlock(
+			static fn(int $id) => new ShowerHead(new BlockIdentifier($id), "Shower Head", new BlockTypeInfo(new BlockBreakInfo(2))),
+			"mcfurniture:shower_head",
+			new Model([new Material(Material::TARGET_ALL, "black_kitchen_counter_sink", Material::RENDER_METHOD_ALPHA_TEST, false, true)], "geometry.shower_head", new Vector3(-2.5, 2, -2.5), new Vector3(5, 5.3, 10)),
 			new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE),
 		);
 

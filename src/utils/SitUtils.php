@@ -71,7 +71,7 @@ class SitUtils{
 
 		self::setSit($player, Position::fromObject($pos, $player->getWorld()));
 
-		
+
 		$player->sendMessage(TranslationMessage::now_sit());
 	}
 
