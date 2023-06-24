@@ -26,7 +26,6 @@ use pocketmine\world\Position;
 
 class SitUtils
 {
-	public static array $toggleSit = [];
 
 	public static array $sittingData = [];
 
@@ -113,10 +112,6 @@ class SitUtils
             'eid' => $eid,
             'pos' => $pos
         ];
-    }
-
-    public static function isToggleSit(Player $player): bool {
-        return in_array(strtolower($player->getName()), self::$toggleSit, true);
     }
 
     public static function optimizeRotation(Player $player): void {

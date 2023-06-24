@@ -100,7 +100,7 @@ class Chair extends Transparent implements \customiesdevs\customies\block\permut
 	}
 
 	public function onInteract(Item $item, int $face, Vector3 $clickVector, ?Player $player = null, array &$returnedItems = []) : bool{
-        if (!SitUtils::isToggleSit($player)) {
+        if (!SitUtils::isSitting($player)) {
             SitUtils::sit($player, $this);
         }
 		return false;
