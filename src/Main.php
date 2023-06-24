@@ -18,27 +18,9 @@ use DavyCraft648\MCFurniture\block\{BarStool,
     Lamp,
     Table};
 use pocketmine\block\{BlockBreakInfo, BlockIdentifier, BlockTypeInfo};
-use pocketmine\block\{Block, Opaque, Slab, Stair};
 use DavyCraft648\MCFurniture\utils\SitUtils;
-use pocketmine\entity\Entity;
-use pocketmine\event\EventPriority;
-use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\math\Vector3;
-use pocketmine\network\mcpe\protocol\AddActorPacket;
-use pocketmine\network\mcpe\protocol\MoveActorAbsolutePacket;
-use pocketmine\network\mcpe\protocol\RemoveActorPacket;
-use pocketmine\network\mcpe\protocol\SetActorLinkPacket;
-use pocketmine\network\mcpe\protocol\types\entity\EntityIds;
-use pocketmine\network\mcpe\protocol\types\entity\EntityLink;
-use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataFlags;
-use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataProperties;
-use pocketmine\network\mcpe\protocol\types\entity\LongMetadataProperty;
-use pocketmine\network\mcpe\protocol\types\entity\PropertySyncData;
-use pocketmine\player\Player;
 use pocketmine\resourcepacks\ZippedResourcePack;
-use pocketmine\utils\TextFormat;
-use pocketmine\world\format\io\GlobalBlockStateHandlers;
-use pocketmine\world\Position;
 use Symfony\Component\Filesystem\Path;
 use function array_merge;
 
