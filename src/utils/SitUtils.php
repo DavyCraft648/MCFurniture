@@ -69,7 +69,7 @@ class SitUtils
 
         self::setSit($player, Server::getInstance()->getOnlinePlayers(), new Position($pos->x, $pos->y, $pos->z, Server::getInstance()->getWorldManager()->getWorldByName($player->getWorld()->getFolderName())));
 
-        $player->sendMessage("You are sitting");
+        $player->sendMessage("You are now sitting");
         $player->sendTip("Sneak to stand");
     }
 
