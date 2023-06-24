@@ -12,8 +12,7 @@ use pocketmine\data\bedrock\block\convert\BlockStateWriter;
 use pocketmine\data\runtime\RuntimeDataDescriber;
 use pocketmine\nbt\tag\CompoundTag;
 
-class Shower extends \pocketmine\block\Transparent implements Permutable
-{
+class Shower extends \pocketmine\block\Transparent implements Permutable{
 	use HorizontalFacingTrait;
 
 	public function getBlockProperties() : array{
