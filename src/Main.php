@@ -35,7 +35,6 @@ class Main extends \pocketmine\plugin\PluginBase{
 			new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE),
 		);
 
-
 		CustomiesBlockFactory::getInstance()->registerBlock(
 			static fn(int $id) => new Shower(new BlockIdentifier($id), "Shower", new BlockTypeInfo(new BlockBreakInfo(2))),
 			"mcfurniture:shower",
