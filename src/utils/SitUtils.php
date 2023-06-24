@@ -26,6 +26,9 @@ use function strtolower;
 
 class SitUtils{
 
+	/**
+	 * @var array<string, array{eid: int, pos: Position}>
+	 */
 	public static array $sittingData = [];
 
 	public static function isSitting(Player $player) : bool{
@@ -39,7 +42,7 @@ class SitUtils{
 		unset(self::$sittingData[strtolower($player->getName())]);
 
 		$player->getNetworkProperties()->setGenericFlag(EntityMetadataFlags::RIDING, false);
-		$player->sendMessage("§rYou are no longer sitting");
+		$player->sendMessage(TranslationMessage::no_longer_sit());
 
 		$player->getWorld()->broadcastPacketToViewers($player->getPosition(), $pk1);
 		$player->getWorld()->broadcastPacketToViewers($player->getPosition(), $pk);
@@ -52,22 +55,24 @@ class SitUtils{
 			return;
 		}
 
-		foreach(self::$sittingData as $playerName => $data){
+		foreach(self::$sittingData as $data){
 			if($pos->equals($data['pos'])){
-				$player->sendMessage("this seat is occupied");
+				$player->sendMessage(TranslationMessage::seat_occupied());
+
 				return;
 			}
 		}
 
 		if(self::isSitting($player)){
-			$player->sendMessage("You are already sitting!");
+			$player->sendMessage(TranslationMessage::already_sit());
+
 			return;
 		}
 
 		self::setSit($player, Position::fromObject($pos, $player->getWorld()));
 
-		$player->sendMessage("You are now sitting");
-		$player->sendTip("Sneak to stand");
+		
+		$player->sendMessage(TranslationMessage::now_sit());
 	}
 
 	public static function setSit(Player $player, Position $pos, ?int $eid = null) : void{

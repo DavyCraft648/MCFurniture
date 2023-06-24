@@ -18,9 +18,9 @@ class Main extends \pocketmine\plugin\PluginBase{
 
 	protected function onEnable() : void{
 		$this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
-		$this->saveResource("MCFurniture.mcpack");
+		$this->saveResource("MCFurniture v1.0.1.mcpack");
 		$rpManager = $this->getServer()->getResourcePackManager();
-		$rpManager->setResourceStack(array_merge($rpManager->getResourceStack(), [new ZippedResourcePack(Path::join($this->getDataFolder(), "MCFurniture.mcpack"))]));
+		$rpManager->setResourceStack(array_merge($rpManager->getResourceStack(), [new ZippedResourcePack(Path::join($this->getDataFolder(), "MCFurniture v1.0.1.mcpack"))]));
 		(new \ReflectionProperty($rpManager, "serverForceResources"))->setValue($rpManager, true);
 
 		// $this->getServer()->getPluginManager()->registerEvent(PlayerInteractEvent::class, function(PlayerInteractEvent $event) : void{
@@ -127,7 +127,7 @@ class Main extends \pocketmine\plugin\PluginBase{
 			CustomiesBlockFactory::getInstance()->registerBlock(
 				static fn(int $id) => new StoneCabinet(new BlockIdentifier($id), "Terracotta Cabinet", new BlockTypeInfo(new BlockBreakInfo(2))),
 				"mcfurniture:{$variant}_terracotta_cabinet",
-				new Model([new Material(Material::TARGET_ALL, str_replace(["lime", "purple"], ["light_green", "purpure"], "{$variant}_terracotta_cabinet"), Material::RENDER_METHOD_ALPHA_TEST)], "geometry.bedside_cabinet", new Vector3(-8, 0, -8), new Vector3(16, 16, 16)),
+				new Model([new Material(Material::TARGET_ALL, str_replace(["lime"], ["light_green"], "{$variant}_terracotta_cabinet"), Material::RENDER_METHOD_ALPHA_TEST)], "geometry.bedside_cabinet", new Vector3(-8, 0, -8), new Vector3(16, 16, 16)),
 				new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE)
 			);
 		}
@@ -143,7 +143,7 @@ class Main extends \pocketmine\plugin\PluginBase{
 			CustomiesBlockFactory::getInstance()->registerBlock(
 				static fn(int $id) => new Cabinet(new BlockIdentifier($id), "Wooden Cabinet", new BlockTypeInfo(new BlockBreakInfo(2))),
 				"mcfurniture:{$variant}_cabinet",
-				new Model([new Material(Material::TARGET_ALL, $variant === "dark_oak" ? "darkoak_cabinet" : "{$variant}_cabinet", Material::RENDER_METHOD_ALPHA_TEST)], "geometry.cabinet", new Vector3(-8, 0, -8), new Vector3(16, 16, 16)),
+				new Model([new Material(Material::TARGET_ALL, "{$variant}_cabinet", Material::RENDER_METHOD_ALPHA_TEST)], "geometry.cabinet", new Vector3(-8, 0, -8), new Vector3(16, 16, 16)),
 				new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE)
 			);
 

@@ -117,7 +117,7 @@ class Bath extends \pocketmine\block\Transparent implements \customiesdevs\custo
 				->setFloat("x", 0)
 				->setFloat("y", 0)
 				->setFloat("z", 0))*/,
-			(new Permutation("q.block_property('facing_direction') == 4 && q.block_property('mcfurniture:filled') == filled"))
+			(new Permutation("q.block_property('facing_direction') == 4 && q.block_property('mcfurniture:filled') == true"))
 				->withComponent("minecraft:transformation", CompoundTag::create()
 					->setInt("RX", 0)
 					->setInt("RY", 3)
