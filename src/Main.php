@@ -5,12 +5,15 @@ namespace DavyCraft648\MCFurniture;
 
 use customiesdevs\customies\block\{CustomiesBlockFactory, Material, Model};
 use customiesdevs\customies\item\CreativeInventoryInfo;
+use DavyCraft648\MCFurniture\block\{BarStool, Basin, Bath, BedsideCabinet, Bin, Blinds, Cabinet, Candle, CeilingLight,
+	Chair, Chimney, ChristmasTree, DigitalClock, FairyLight, Lamp, StoneCabinet, Table, WallCabinet};
 use pocketmine\block\{BlockBreakInfo, BlockIdentifier, BlockTypeInfo};
 use DavyCraft648\MCFurniture\utils\SitUtils;
 use pocketmine\math\Vector3;
 use pocketmine\resourcepacks\ZippedResourcePack;
 use Symfony\Component\Filesystem\Path;
 use function array_merge;
+use function str_replace;
 
 class Main extends \pocketmine\plugin\PluginBase{
 
@@ -40,6 +43,20 @@ class Main extends \pocketmine\plugin\PluginBase{
 		// }, EventPriority::NORMAL, $this);
 
 		CustomiesBlockFactory::getInstance()->registerBlock(
+			static fn(int $id) => new Basin(new BlockIdentifier($id), "Basin", new BlockTypeInfo(new BlockBreakInfo(2))),
+			"mcfurniture:basin",
+			new Model([new Material(Material::TARGET_ALL, "black_kitchen_counter_sink", Material::RENDER_METHOD_ALPHA_TEST)], "geometry.basin", new Vector3(-8, 0, -8), new Vector3(16, 16, 16)),
+			new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE),
+		);
+
+		CustomiesBlockFactory::getInstance()->registerBlock(
+			static fn(int $id) => new Bath(new BlockIdentifier($id), "Bath", new BlockTypeInfo(new BlockBreakInfo(0.3))),
+			"mcfurniture:bath",
+			new Model([new Material(Material::TARGET_ALL, "black_kitchen_counter_sink", Material::RENDER_METHOD_ALPHA_TEST)], "geometry.bath", new Vector3(-8, 0, -8), new Vector3(16, 12, 16)),
+			new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE),
+		);
+
+		CustomiesBlockFactory::getInstance()->registerBlock(
 			static fn(int $id) => new Bin(new BlockIdentifier($id), "Bin", new BlockTypeInfo(new BlockBreakInfo(0.3))),
 			"mcfurniture:bin",
 			new Model([new Material(Material::TARGET_ALL, "bin", Material::RENDER_METHOD_ALPHA_TEST)], "geometry.bin", new Vector3(-8, 0, -8), new Vector3(16, 16, 16)),
@@ -64,7 +81,7 @@ class Main extends \pocketmine\plugin\PluginBase{
 			CustomiesBlockFactory::getInstance()->registerBlock(
 				static fn(int $id) => new BedsideCabinet(new BlockIdentifier($id), "Bedside Cabinet", new BlockTypeInfo(new BlockBreakInfo(2))),
 				"mcfurniture:{$variant}_bedside_cabinet",
-				new Model([new Material(Material::TARGET_ALL, "bedside_cabinet_$variant", Material::RENDER_METHOD_ALPHA_TEST)], "geometry.bedside_cabinet", new Vector3(-8, 0, -8), new Vector3(16, 12, 16)),
+				new Model([new Material(Material::TARGET_ALL, "bedside_cabinet_$variant", Material::RENDER_METHOD_ALPHA_TEST)], "geometry.bedside_cabinet", new Vector3(-8, 0, -8), new Vector3(16, 16, 16)),
 				new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE)
 			);
 
@@ -121,6 +138,13 @@ class Main extends \pocketmine\plugin\PluginBase{
                 new Model([new Material(Material::TARGET_ALL, "{$variant}_lamp", Material::RENDER_METHOD_ALPHA_TEST)], "geometry.lamp", new Vector3(-8, 0, -8), new Vector3(16, 16, 16)),
 				new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE)
 			);
+
+			CustomiesBlockFactory::getInstance()->registerBlock(
+				static fn(int $id) => new StoneCabinet(new BlockIdentifier($id), "Terracotta Cabinet", new BlockTypeInfo(new BlockBreakInfo(2))),
+				"mcfurniture:{$variant}_terracotta_cabinet",
+				new Model([new Material(Material::TARGET_ALL, str_replace(["lime", "purple"], ["light_green", "purpure"], "{$variant}_terracotta_cabinet"), Material::RENDER_METHOD_ALPHA_TEST)], "geometry.bedside_cabinet", new Vector3(-8, 0, -8), new Vector3(16, 16, 16)),
+				new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE)
+			);
 		}
 
 		CustomiesBlockFactory::getInstance()->registerBlock(
@@ -131,6 +155,13 @@ class Main extends \pocketmine\plugin\PluginBase{
 		);
 
 		foreach(["acacia", "birch", "dark_oak", "jungle", "oak", "spruce"] as $variant){
+			CustomiesBlockFactory::getInstance()->registerBlock(
+				static fn(int $id) => new Cabinet(new BlockIdentifier($id), "Wooden Cabinet", new BlockTypeInfo(new BlockBreakInfo(2))),
+				"mcfurniture:{$variant}_cabinet",
+				new Model([new Material(Material::TARGET_ALL, $variant === "dark_oak" ? "darkoak_cabinet" : "{$variant}_cabinet", Material::RENDER_METHOD_ALPHA_TEST)], "geometry.cabinet", new Vector3(-8, 0, -8), new Vector3(16, 16, 16)),
+				new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE)
+			);
+
 			CustomiesBlockFactory::getInstance()->registerBlock(
 				static fn(int $id) => new Blinds(new BlockIdentifier($id), "Blinds", new BlockTypeInfo(new BlockBreakInfo(0.3))),
 				"mcfurniture:{$variant}_blinds",
@@ -145,6 +176,29 @@ class Main extends \pocketmine\plugin\PluginBase{
 				new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE)
 			);
 		}
+
+		foreach(["andesite", "diorite", "granite", "stone"] as $variant){
+			CustomiesBlockFactory::getInstance()->registerBlock(
+				static fn(int $id) => new StoneCabinet(new BlockIdentifier($id), "Stone Cabinet", new BlockTypeInfo(new BlockBreakInfo(2))),
+				"mcfurniture:{$variant}_cabinet",
+				new Model([new Material(Material::TARGET_ALL, "{$variant}_cabinet", Material::RENDER_METHOD_ALPHA_TEST)], "geometry.stonecabinet", new Vector3(-8, 0, -8), new Vector3(16, 16, 16)),
+				new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE)
+			);
+		}
+
+		CustomiesBlockFactory::getInstance()->registerBlock(
+			static fn(int $id) => new WallCabinet(new BlockIdentifier($id), "Wall Cabinet", new BlockTypeInfo(new BlockBreakInfo(0.3))),
+			"mcfurniture:wall_cabinet",
+			new Model([new Material(Material::TARGET_ALL, "wall_cabinet", Material::RENDER_METHOD_ALPHA_TEST)], "geometry.wall_cabinet", new Vector3(-8, 0, -8), new Vector3(16, 16, 4)),
+			new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE)
+		);
+
+		CustomiesBlockFactory::getInstance()->registerBlock(
+			static fn(int $id) => new ChristmasTree(new BlockIdentifier($id), "Christmas Tree", new BlockTypeInfo(new BlockBreakInfo(0.3))),
+			"mcfurniture:christmas_tree",
+			new Model([new Material(Material::TARGET_ALL, "christmas_tree", Material::RENDER_METHOD_BLEND)], "geometry.christmas_tree", new Vector3(-8, 0, -8), new Vector3(16, 16, 16)),
+			new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE)
+		);
 	}
 
     public static function getInstance(): self{

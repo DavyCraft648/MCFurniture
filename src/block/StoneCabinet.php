@@ -6,7 +6,7 @@ namespace DavyCraft648\MCFurniture\block;
 use customiesdevs\customies\block\permutations\Permutation;
 use pocketmine\nbt\tag\CompoundTag;
 
-class BedsideCabinet extends Cabinet{
+class StoneCabinet extends Cabinet{
 	public function getPermutations() : array{
 		return [
 			(new Permutation("q.block_property('facing_direction') == 2"))
@@ -71,10 +71,10 @@ class BedsideCabinet extends Cabinet{
 				->setFloat("z", 0))*/,
 			(new Permutation("q.block_property('open_bit') == false"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.bedside_cabinet")),
+					->setString("value", "geometry.stonecabinet")),
 			(new Permutation("q.block_property('open_bit') == true"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.bedside_cabinet_open")),
+					->setString("value", "geometry.stonecabinetopen")),
 		];
 	}
 }
