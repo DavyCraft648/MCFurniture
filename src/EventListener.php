@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DavyCraft648\MCFurniture;
 
 use DavyCraft648\MCFurniture\block\Chair;
-use DavyCraft648\MCFurniture\block\Toilet;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\entity\EntityTeleportEvent;
 use pocketmine\event\player\PlayerDeathEvent;
@@ -33,7 +34,7 @@ class EventListener implements \pocketmine\event\Listener
 
                 if ($sittingPlayer !== null) {
                     $block = $sittingPlayer->getWorld()->getBlock($sittingPlayer->getPosition()->add(0, -0.3, 0));
-                    if ($block instanceof Chair or $block instanceof Toilet){
+                    if ($block instanceof Chair){
                         $pos = $block->getPosition()->add(0.5, 1.6, 0.5);
                     } else {
                         return;
@@ -79,7 +80,7 @@ class EventListener implements \pocketmine\event\Listener
 
     public function onBlockBreak(BlockBreakEvent $event): void {
         $block = $event->getBlock();
-        if ($block instanceof Chair or $block instanceof Toilet){
+        if ($block instanceof Chair){
             $pos = $block->getPosition()->add(0.5, 1.6, 0.5);
         } else {
             return;

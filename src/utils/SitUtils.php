@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DavyCraft648\MCFurniture\utils;
 
 use DavyCraft648\MCFurniture\block\Chair;
-use DavyCraft648\MCFurniture\block\Toilet;
 use DavyCraft648\MCFurniture\Main;
 use pocketmine\block\Block;
 use pocketmine\entity\Entity;
@@ -53,7 +54,7 @@ class SitUtils
     }
 
     public function sit(Player $player, Block $block): void {
-        if($block instanceof Chair or $block instanceof Toilet){
+        if($block instanceof Chair){
             $pos = $block->getPosition()->add(0.5, 1.6, 0.5);
         } else{
             return;
