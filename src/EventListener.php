@@ -18,6 +18,7 @@ use pocketmine\network\mcpe\protocol\InteractPacket;
 use pocketmine\player\Player;
 use pocketmine\scheduler\ClosureTask;
 use pocketmine\world\Position;
+use function strtolower;
 
 class EventListener implements \pocketmine\event\Listener{
 
