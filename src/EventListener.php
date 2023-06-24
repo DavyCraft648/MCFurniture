@@ -103,7 +103,7 @@ class EventListener implements \pocketmine\event\Listener{
 		if($player === null){
 			return;
 		}
-		
+
 		if($packet instanceof InteractPacket and $packet->action === InteractPacket::ACTION_LEAVE_VEHICLE && SitUtils::isSitting($player)){
 			SitUtils::unsetSit($player);
 		}
