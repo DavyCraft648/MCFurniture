@@ -17,6 +17,7 @@ use function str_replace;
 class Main extends \pocketmine\plugin\PluginBase{
 
 	protected function onEnable() : void{
+		$this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
 		$this->saveResource("MCFurniture.mcpack");
 		$rpManager = $this->getServer()->getResourcePackManager();
 		$rpManager->setResourceStack(array_merge($rpManager->getResourceStack(), [new ZippedResourcePack(Path::join($this->getDataFolder(), "MCFurniture.mcpack"))]));
@@ -89,6 +90,13 @@ class Main extends \pocketmine\plugin\PluginBase{
 			"mcfurniture:chimney",
 			new Model([new Material(Material::TARGET_ALL, "chimney", Material::RENDER_METHOD_ALPHA_TEST)], "geometry.chimney_top", new Vector3(-6, 0, -6), new Vector3(12, 16, 12)),
 			new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_CONSTRUCTION, CreativeInventoryInfo::NONE)
+		);
+
+		CustomiesBlockFactory::getInstance()->registerBlock(
+			static fn(int $id) => new Chair(new BlockIdentifier($id), "Toilet", new BlockTypeInfo(new BlockBreakInfo(0.3))),
+			"mcfurniture:toilet",
+			new Model([new Material(Material::TARGET_ALL, "black_kitchen_counter_sink", Material::RENDER_METHOD_ALPHA_TEST)], "geometry.toilet", new Vector3(-8, 0, -8), new Vector3(16, 12, 16)),
+			new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE)
 		);
 
 		foreach([

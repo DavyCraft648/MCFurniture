@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace DavyCraft648\MCFurniture\block;
 
 use customiesdevs\customies\block\permutations\{BlockProperty, Permutation};
+use DavyCraft648\MCFurniture\utils\SitUtils;
 use pocketmine\block\{Block, Transparent, utils\HorizontalFacingTrait};
 use pocketmine\data\bedrock\block\{BlockStateNames, convert\BlockStateReader, convert\BlockStateWriter};
 use pocketmine\data\runtime\RuntimeDataDescriber;
@@ -99,7 +100,10 @@ class Chair extends Transparent implements \customiesdevs\customies\block\permut
 	}
 
 	public function onInteract(Item $item, int $face, Vector3 $clickVector, ?Player $player = null, array &$returnedItems = []) : bool{
-		return false; //TODO: sit
+		if(!SitUtils::isSitting($player)){
+			SitUtils::sit($player, $this);
+		}
+		return false;
 	}
 
 	protected function describeBlockOnlyState(RuntimeDataDescriber $w) : void{
