@@ -97,7 +97,7 @@ class Main extends \pocketmine\plugin\PluginBase{
 			CustomiesBlockFactory::getInstance()->registerBlock(
 				static fn(int $id) => new Lamp(new BlockIdentifier($id), "Lamp", new BlockTypeInfo(new BlockBreakInfo(0.3))),
 				"mcfurniture:{$variant}_lamp",
-				new Model([new Material(Material::TARGET_ALL, "{$variant}_lamp", Material::RENDER_METHOD_ALPHA_TEST)], "geometry.lamp"),
+				new Model([new Material(Material::TARGET_ALL, "{$variant}_lamp", Material::RENDER_METHOD_ALPHA_TEST)], "geometry.lamp", new Vector3(-8, 0, -8), new Vector3(16, 16, 16)),
 				new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE)
 			);
 		}

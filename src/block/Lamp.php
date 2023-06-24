@@ -4,14 +4,12 @@ declare(strict_types=1);
 namespace DavyCraft648\MCFurniture\block;
 
 use customiesdevs\customies\block\permutations\{BlockProperty, Permutation};
-use pocketmine\block\Block;
 use pocketmine\data\bedrock\block\{BlockStateNames, convert\BlockStateReader, convert\BlockStateWriter};
 use pocketmine\data\runtime\RuntimeDataDescriber;
 use pocketmine\item\Item;
-use pocketmine\math\{Facing, Vector3};
+use pocketmine\math\Vector3;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\player\Player;
-use pocketmine\world\BlockTransaction;
 
 class Lamp extends \pocketmine\block\Transparent implements \customiesdevs\customies\block\permutations\Permutable{
 
@@ -54,13 +52,6 @@ class Lamp extends \pocketmine\block\Transparent implements \customiesdevs\custo
 
 	public function isLight() : bool{
 		return $this->light;
-	}
-
-	public function place(BlockTransaction $tx, Item $item, Block $blockReplace, Block $blockClicked, int $face, Vector3 $clickVector, ?Player $player = null) : bool{
-		if($face !== Facing::DOWN){
-			return false;
-		}
-		return parent::place($tx, $item, $blockReplace, $blockClicked, $face, $clickVector, $player);
 	}
 
 	protected function describeBlockOnlyState(RuntimeDataDescriber $w) : void{
