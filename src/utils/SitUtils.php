@@ -96,10 +96,7 @@ class SitUtils
 		);
         $player->getNetworkProperties()->setGenericFlag(EntityMetadataFlags::RIDING, true);
 
-        foreach ($viewers as $viewer){
-            $viewer->getNetworkSession()->sendDataPacket($pk);
-            $viewer->getNetworkSession()->sendDataPacket($link);
-        }
+		$player->getWorld()->broadcastPacketToViewers($player->getPosition(), $pk);
 
         if (self::isSitting($player)) {
             return;
