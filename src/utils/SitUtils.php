@@ -42,10 +42,8 @@ class SitUtils
         $player->getNetworkProperties()->setGenericFlag(EntityMetadataFlags::RIDING, false);
         $player->sendMessage("§rYou are no longer sitting");
 
-        foreach (Server::getInstance()->getOnlinePlayers() as $viewer){
-            $viewer->getNetworkSession()->sendDataPacket($pk1);
-            $viewer->getNetworkSession()->sendDataPacket($pk);
-        }
+	    $player->getWorld()->broadcastPacketToViewers($player->getPosition(), $pk1);
+	    $player->getWorld()->broadcastPacketToViewers($player->getPosition(), $pk);
     }
 
     public static function sit(Player $player, Block $block): void {
@@ -67,7 +65,7 @@ class SitUtils
             return;
         }
 
-        self::setSit($player, Server::getInstance()->getOnlinePlayers(), new Position($pos->x, $pos->y, $pos->z, Server::getInstance()->getWorldManager()->getWorldByName($player->getWorld()->getFolderName())));
+        self::setSit($player, $player->getViewers(), new Position($pos->x, $pos->y, $pos->z, Server::getInstance()->getWorldManager()->getWorldByName($player->getWorld()->getFolderName())));
 
         $player->sendMessage("You are now sitting");
         $player->sendTip("Sneak to stand");
