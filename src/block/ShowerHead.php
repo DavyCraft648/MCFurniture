@@ -31,6 +31,7 @@ class ShowerHead extends \pocketmine\block\Transparent implements \customiesdevs
 	public function getCurrentBlockProperties() : array{
 		return [$this->facing, $this->water];
 	}
+
 	protected function describeBlockOnlyState(RuntimeDataDescriber $w) : void{
 		$w->horizontalFacing($this->facing);
 	}
