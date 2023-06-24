@@ -89,6 +89,7 @@ class Shower extends \pocketmine\block\Transparent implements Permutable{
 	public function getCurrentBlockProperties() : array{
 		return [$this->facing];
 	}
+
 	protected function describeBlockOnlyState(RuntimeDataDescriber $w) : void{
 		$w->horizontalFacing($this->facing);
 	}
