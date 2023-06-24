@@ -11,10 +11,10 @@ use pocketmine\data\bedrock\block\convert\BlockStateWriter;
 use pocketmine\data\runtime\RuntimeDataDescriber;
 use pocketmine\nbt\tag\CompoundTag;
 
-class ShowerHead extends \pocketmine\block\Transparent implements \customiesdevs\customies\block\permutations\Permutable
-{
-	use HorizontalFacingTrait;
 
+
+class ShowerHead extends \pocketmine\block\Transparent implements \customiesdevs\customies\block\permutations\Permutable{
+	use HorizontalFacingTrait;
 
 	public function getBlockProperties() : array{
 		return [];
@@ -22,9 +22,11 @@ class ShowerHead extends \pocketmine\block\Transparent implements \customiesdevs
 	public function getPermutations() : array{
 		return [];
 	}
+
 	public function getCurrentBlockProperties() : array{
 		return [];
 	}
+
 	protected function describeBlockOnlyState(RuntimeDataDescriber $w) : void{
 	}
 
