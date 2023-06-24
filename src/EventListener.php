@@ -40,7 +40,6 @@ class EventListener implements \pocketmine\event\Listener{
 					}else{
 						return;
 					}
-
 					SitUtils::setSit($sittingPlayer, new Position($pos->x, $pos->y, $pos->z, $sittingPlayer->getWorld()), SitUtils::$sittingData[strtolower($sittingPlayer->getName())]['eid']);
 				}
 			}
@@ -90,7 +89,6 @@ class EventListener implements \pocketmine\event\Listener{
 		foreach(SitUtils::$sittingData as $playerName => $data){
 			if($pos->equals($data["pos"])){
 				$sittingPlayer = $this->plugin->getServer()->getPlayerExact($playerName);
-
 				if($sittingPlayer !== null){
 					SitUtils::unsetSit($sittingPlayer);
 				}
@@ -105,7 +103,7 @@ class EventListener implements \pocketmine\event\Listener{
 		if($player === null){
 			return;
 		}
-
+		
 		if($packet instanceof InteractPacket and $packet->action === InteractPacket::ACTION_LEAVE_VEHICLE && SitUtils::isSitting($player)){
 			SitUtils::unsetSit($player);
 		}

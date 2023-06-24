@@ -68,10 +68,7 @@ class SitUtils{
 
 			return;
 		}
-
 		self::setSit($player, Position::fromObject($pos, $player->getWorld()));
-
-
 		$player->sendMessage(TranslationMessage::now_sit());
 	}
 
@@ -95,8 +92,8 @@ class SitUtils{
 			new PropertySyncData([], []),
 			[new EntityLink($eid, $player->getId(), EntityLink::TYPE_RIDER, true, true)]
 		);
-		$player->getNetworkProperties()->setGenericFlag(EntityMetadataFlags::RIDING, true);
 
+		$player->getNetworkProperties()->setGenericFlag(EntityMetadataFlags::RIDING, true);
 		$player->getWorld()->broadcastPacketToViewers($player->getPosition(), $pk);
 
 		if(self::isSitting($player)){
