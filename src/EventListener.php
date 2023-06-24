@@ -42,7 +42,7 @@ class EventListener implements \pocketmine\event\Listener
                         return;
                     }
 
-                   SitUtils::setSit($sittingPlayer, [$event->getPlayer()], new Position($pos->x, $pos->y, $pos->z, $sittingPlayer->getWorld()), SitUtils::$sittingData[strtolower($sittingPlayer->getName())]['eid']);
+                   SitUtils::setSit($sittingPlayer, new Position($pos->x, $pos->y, $pos->z, $sittingPlayer->getWorld()), SitUtils::$sittingData[strtolower($sittingPlayer->getName())]['eid']);
                 }
             }
         }), 30);

@@ -64,13 +64,13 @@ class SitUtils
             return;
         }
 
-	    self::setSit($player, $player->getViewers(), Position::fromObject($pos, $player->getWorld()));
+	    self::setSit($player, Position::fromObject($pos, $player->getWorld()));
 
         $player->sendMessage("You are now sitting");
         $player->sendTip("Sneak to stand");
     }
 
-    public static function setSit(Player $player, array $viewers, Position $pos, ?int $eid = null): void {
+    public static function setSit(Player $player, Position $pos, ?int $eid = null): void {
         if ($eid === null) {
             $eid = Entity::nextRuntimeId();
         }
