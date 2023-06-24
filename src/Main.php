@@ -92,12 +92,12 @@ class Main extends \pocketmine\plugin\PluginBase{
 			new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_CONSTRUCTION, CreativeInventoryInfo::NONE)
 		);
 
-        CustomiesBlockFactory::getInstance()->registerBlock(
-            static fn(int $id) => new Chair(new BlockIdentifier($id), "Toilet", new BlockTypeInfo(new BlockBreakInfo(0.3))),
-            "mcfurniture:toilet",
-            new Model([new Material(Material::TARGET_ALL, "black_kitchen_counter_sink", Material::RENDER_METHOD_ALPHA_TEST)], "geometry.toilet", new Vector3(-8, 0, -8), new Vector3(16, 12, 16)),
-            new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE)
-        );
+		CustomiesBlockFactory::getInstance()->registerBlock(
+			static fn(int $id) => new Chair(new BlockIdentifier($id), "Toilet", new BlockTypeInfo(new BlockBreakInfo(0.3))),
+			"mcfurniture:toilet",
+			new Model([new Material(Material::TARGET_ALL, "black_kitchen_counter_sink", Material::RENDER_METHOD_ALPHA_TEST)], "geometry.toilet", new Vector3(-8, 0, -8), new Vector3(16, 12, 16)),
+			new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE)
+		);
 
 		foreach([
 			        "black", "blue", "brown", "cyan", "gray", "green", "light_blue", "light_gray", "lime", "magenta",
