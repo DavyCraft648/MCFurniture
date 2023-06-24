@@ -118,9 +118,7 @@ class SitUtils
 		    0
 	    );
 
-        foreach (Server::getInstance()->getOnlinePlayers() as $viewer){
-            $viewer->getNetworkSession()->sendDataPacket($pk);
-        }
+
     }
 
 }
