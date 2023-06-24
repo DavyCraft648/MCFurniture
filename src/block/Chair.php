@@ -7,6 +7,7 @@ use customiesdevs\customies\block\permutations\{BlockProperty, Permutation};
 use pocketmine\block\{Block, Transparent, utils\HorizontalFacingTrait};
 use pocketmine\data\bedrock\block\{BlockStateNames, convert\BlockStateReader, convert\BlockStateWriter};
 use DavyCraft648\MCFurniture\Main;
+use DavyCraft648\MCFurniture\utils\SitUtils;
 use pocketmine\data\runtime\RuntimeDataDescriber;
 use pocketmine\item\Item;
 use pocketmine\math\Vector3;
@@ -100,8 +101,8 @@ class Chair extends Transparent implements \customiesdevs\customies\block\permut
 	}
 
 	public function onInteract(Item $item, int $face, Vector3 $clickVector, ?Player $player = null, array &$returnedItems = []) : bool{
-        if (!Main::getInstance()->sitUtils->isToggleSit($player)) {
-            Main::getInstance()->sitUtils->sit($player, $this);
+        if (!SitUtils::isToggleSit($player)) {
+            SitUtils::sit($player, $this);
         }
 		return false;
 	}

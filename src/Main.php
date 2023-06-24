@@ -17,22 +17,9 @@ use function str_replace;
 
 class Main extends \pocketmine\plugin\PluginBase{
 
-    public array $toggleSit = [];
-
-    public array $sittingData = [];
-
-    public SitUtils $sitUtils;
-
-    private static self $instance;
-
-    protected function onLoad(): void
-    {
-        self::$instance = $this;
-    }
 
     protected function onEnable() : void{
         $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
-        $this->sitUtils = new SitUtils($this);
 		$this->saveResource("MCFurniture.mcpack");
 		$rpManager = $this->getServer()->getResourcePackManager();
 		$rpManager->setResourceStack(array_merge($rpManager->getResourceStack(), [new ZippedResourcePack(Path::join($this->getDataFolder(), "MCFurniture.mcpack"))]));
@@ -200,8 +187,4 @@ class Main extends \pocketmine\plugin\PluginBase{
 			new CreativeInventoryInfo(CreativeInventoryInfo::CATEGORY_ITEMS, CreativeInventoryInfo::NONE)
 		);
 	}
-
-    public static function getInstance(): self{
-        return self::$instance;
-    }
 }

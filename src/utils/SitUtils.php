@@ -18,31 +18,29 @@ use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataFlags;
 use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataProperties;
 use pocketmine\network\mcpe\protocol\types\entity\LongMetadataProperty;
 use pocketmine\network\mcpe\protocol\types\entity\PropertySyncData;
+use pocketmine\network\mcpe\protocol\types\inventory\stackrequest\ItemStackRequestActionType;
 use pocketmine\player\Player;
 use pocketmine\Server;
 use pocketmine\world\Position;
 
 class SitUtils
 {
+	public static array $toggleSit = [];
 
-    public Main $plugin;
-    
-    public function __construct(Main $plugin){
-        $this->plugin = $plugin;
+	public static array $sittingData = [];
+
+    public static function isSitting(Player $player): bool {
+        return isset(self::$sittingData[strtolower($player->getName())]);
     }
 
-    public function isSitting(Player $player): bool {
-        return isset($this->plugin->sittingData[strtolower($player->getName())]);
-    }
-
-    public function unsetSit(Player $player): void {
+    public static function unsetSit(Player $player): void {
         $pk1 = new RemoveActorPacket();
-        $pk1->actorUniqueId = $this->plugin->sittingData[strtolower($player->getName())]['eid'];
+        $pk1->actorUniqueId = self::$sittingData[strtolower($player->getName())]['eid'];
 
         $pk = new SetActorLinkPacket();
-        $pk->link = new EntityLink($this->plugin->sittingData[strtolower($player->getName())]['eid'], $player->getId(), EntityLink::TYPE_REMOVE, true, true);
+        $pk->link = new EntityLink(self::$sittingData[strtolower($player->getName())]['eid'], $player->getId(), EntityLink::TYPE_REMOVE, true, true);
 
-        unset($this->plugin->sittingData[strtolower($player->getName())]);
+        unset(self::$sittingData[strtolower($player->getName())]);
 
         $player->getNetworkProperties()->setGenericFlag(EntityMetadataFlags::RIDING, false);
         $player->sendMessage("Kamu sudah tidak duduk");
@@ -53,32 +51,32 @@ class SitUtils
         }
     }
 
-    public function sit(Player $player, Block $block): void {
+    public static function sit(Player $player, Block $block): void {
         if($block instanceof Chair){
             $pos = $block->getPosition()->add(0.5, 1.6, 0.5);
         } else{
             return;
         }
 
-        foreach ($this->plugin->sittingData as $playerName => $data) {
+        foreach (self::$sittingData as $playerName => $data) {
             if ($pos->equals($data['pos'])) {
                 $player->sendMessage("Tempat ini telah terisi player lain");
                 return;
             }
         }
 
-        if ($this->isSitting($player)) {
+        if (self::isSitting($player)) {
             $player->sendMessage("kamu sudah duduk");
             return;
         }
 
-        $this->setSit($player, Server::getInstance()->getOnlinePlayers(), new Position($pos->x, $pos->y, $pos->z, Server::getInstance()->getWorldManager()->getWorldByName($player->getWorld()->getFolderName())));
+        self::setSit($player, Server::getInstance()->getOnlinePlayers(), new Position($pos->x, $pos->y, $pos->z, Server::getInstance()->getWorldManager()->getWorldByName($player->getWorld()->getFolderName())));
 
         $player->sendMessage("kamu sedang duduk!");
         $player->sendTip("sneak untuk berdiri");
     }
 
-    public function setSit(Player $player, array $viewers, Position $pos, ?int $eid = null): void {
+    public static function setSit(Player $player, array $viewers, Position $pos, ?int $eid = null): void {
         if ($eid === null) {
             $eid = Entity::nextRuntimeId();
         }
@@ -103,36 +101,36 @@ class SitUtils
             $viewer->getNetworkSession()->sendDataPacket($link);
         }
 
-        if ($this->isSitting($player)) {
+        if (self::isSitting($player)) {
             return;
         }
 
-        $this->plugin->sittingData[strtolower($player->getName())] = [
+        self::$sittingData[strtolower($player->getName())] = [
             'eid' => $eid,
             'pos' => $pos
         ];
     }
 
-    public function isToggleSit(Player $player): bool {
-        return in_array(strtolower($player->getName()), $this->plugin->toggleSit, true);
+    public static function isToggleSit(Player $player): bool {
+        return in_array(strtolower($player->getName()), self::$toggleSit, true);
     }
 
-    public function unsetToggleSit(Player $player): void {
-        unset($this->plugin->toggleSit[strtolower($player->getName())]);
+    public static function unsetToggleSit(Player $player): void {
+        unset(self::$toggleSit[strtolower($player->getName())]);
 
         $player->sendMessage("You have enabled tap-on-block sit");
     }
 
-    public function setToggleSit(Player $player): void {
-        $this->plugin->toggleSit[] = strtolower($player->getName());
+    public static function setToggleSit(Player $player): void {
+        self::$toggleSit[] = strtolower($player->getName());
 
         $player->sendMessage("You have disabled tap-on-block sit!");
     }
 
-    public function optimizeRotation(Player $player): void {
+    public static function optimizeRotation(Player $player): void {
         $pk = new MoveActorAbsolutePacket();
-        $pk->position = $this->plugin->sittingData[strtolower($player->getName())]['pos'];
-        $pk->actorRuntimeId = $this->plugin->sittingData[strtolower($player->getName())]['eid'];
+        $pk->position = self::$sittingData[strtolower($player->getName())]['pos'];
+        $pk->actorRuntimeId = self::$sittingData[strtolower($player->getName())]['eid'];
         $pk->pitch = $player->getLocation()->getPitch();
         $pk->yaw = $player->getLocation()->getYaw();
         $pk->headYaw = $player->getLocation()->getYaw();

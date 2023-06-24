@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace DavyCraft648\MCFurniture;
 
 use DavyCraft648\MCFurniture\block\Chair;
+use DavyCraft648\MCFurniture\utils\SitUtils;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\entity\EntityTeleportEvent;
 use pocketmine\event\player\PlayerDeathEvent;
@@ -29,7 +30,7 @@ class EventListener implements \pocketmine\event\Listener
 
     public function onPlayerJoin(PlayerJoinEvent $event): void {
         $this->plugin->getScheduler()->scheduleDelayedTask(new ClosureTask(function() use ($event): void {
-            foreach ($this->plugin->sittingData as $playerName => $data) {
+            foreach (SitUtils::$sittingData as $playerName => $data) {
                 $sittingPlayer = $this->plugin->getServer()->getPlayerExact($playerName);
 
                 if ($sittingPlayer !== null) {
@@ -40,7 +41,7 @@ class EventListener implements \pocketmine\event\Listener
                         return;
                     }
 
-                    $this->plugin->sitUtils->setSit($sittingPlayer, [$event->getPlayer()], new Position($pos->x, $pos->y, $pos->z, $sittingPlayer->getWorld()), $this->plugin->sittingData[strtolower($sittingPlayer->getName())]['eid']);
+                   SitUtils::setSit($sittingPlayer, [$event->getPlayer()], new Position($pos->x, $pos->y, $pos->z, $sittingPlayer->getWorld()), SitUtils::$sittingData[strtolower($sittingPlayer->getName())]['eid']);
                 }
             }
         }), 30);
@@ -48,8 +49,8 @@ class EventListener implements \pocketmine\event\Listener
 
     public function onPlayerQuit(PlayerQuitEvent $event): void {
         $player = $event->getPlayer();
-        if ($this->plugin->sitUtils->isSitting($player)) {
-            $this->plugin->sitUtils->unsetSit($player);
+        if (SitUtils::isSitting($player)) {
+           SitUtils::unsetSit($player);
         }
     }
 
@@ -57,24 +58,24 @@ class EventListener implements \pocketmine\event\Listener
         $entity = $event->getEntity();
 
         if ($entity instanceof Player) {
-           if ($this->plugin->sitUtils->isSitting($entity)) {
-               $this->plugin->sitUtils->unsetSit($entity);
+           if (SitUtils::isSitting($entity)) {
+              SitUtils::unsetSit($entity);
            }
         }
     }
 
     public function onDeath(PlayerDeathEvent $event): void {
         $player = $event->getPlayer();
-        if ($this->plugin->sitUtils->isSitting($player)) {
-            $this->plugin->sitUtils->unsetSit($player);
+        if (SitUtils::isSitting($player)) {
+           SitUtils::unsetSit($player);
         }
     }
 
     public function onMove(PlayerMoveEvent $event): void {
         $player = $event->getPlayer();
 
-        if ($this->plugin->sitUtils->isSitting($player)) {
-            $this->plugin->sitUtils->optimizeRotation($player);
+        if (SitUtils::isSitting($player)) {
+           SitUtils::optimizeRotation($player);
         }
     }
 
@@ -86,12 +87,12 @@ class EventListener implements \pocketmine\event\Listener
             return;
         }
 
-        foreach ($this->plugin->sittingData as $playerName => $data) {
+        foreach (SitUtils::$sittingData as $playerName => $data) {
             if ($pos->equals($data["pos"])) {
                 $sittingPlayer = $this->plugin->getServer()->getPlayerExact($playerName);
 
                 if ($sittingPlayer !== null) {
-                    $this->plugin->sitUtils->unsetSit($sittingPlayer);
+                   SitUtils::unsetSit($sittingPlayer);
                 }
             }
         }
@@ -105,8 +106,8 @@ class EventListener implements \pocketmine\event\Listener
             return;
         }
 
-        if ($packet instanceof InteractPacket and $packet->action === InteractPacket::ACTION_LEAVE_VEHICLE && $this->plugin->sitUtils->isSitting($player)) {
-            $this->plugin->sitUtils->unsetSit($player);
+        if ($packet instanceof InteractPacket and $packet->action === InteractPacket::ACTION_LEAVE_VEHICLE &&SitUtils::isSitting($player)) {
+           SitUtils::unsetSit($player);
         }
     }
 }
