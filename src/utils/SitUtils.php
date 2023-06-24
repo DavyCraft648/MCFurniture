@@ -89,7 +89,7 @@ class SitUtils
 			[],
 			[EntityMetadataProperties::FLAGS => new LongMetadataProperty(1 << EntityMetadataFlags::IMMOBILE | 1 << EntityMetadataFlags::SILENT | 1 << EntityMetadataFlags::INVISIBLE)],
 			new PropertySyncData([], []),
-			[]
+			[new EntityLink($eid, $player->getId(), EntityLink::TYPE_RIDER, true, true)]
 		);
 
 		$link = SetActorLinkPacket::create(
