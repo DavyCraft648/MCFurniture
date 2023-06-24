@@ -4,14 +4,12 @@ declare(strict_types=1);
 namespace DavyCraft648\MCFurniture\block;
 
 use customiesdevs\customies\block\permutations\{BlockProperty, Permutation};
-use pocketmine\block\Block;
 use pocketmine\data\bedrock\block\{BlockStateNames, convert\BlockStateReader, convert\BlockStateWriter};
 use pocketmine\data\runtime\RuntimeDataDescriber;
 use pocketmine\item\Item;
 use pocketmine\math\Vector3;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\player\Player;
-use pocketmine\world\BlockTransaction;
 
 class Lamp extends \pocketmine\block\Transparent implements \customiesdevs\customies\block\permutations\Permutable{
 

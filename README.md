@@ -47,7 +47,7 @@ A furniture plugin for PocketMine-MP (WIP)
 - [ ] Modern Table
 - [ ] Modern Tv
 - [ ] Oven
-- [ ] Park Bench
+- [x] Park Bench
 - [ ] Present
 - [ ] Shower
 - [ ] Shower Head
