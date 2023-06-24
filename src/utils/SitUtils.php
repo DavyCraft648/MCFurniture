@@ -1,12 +1,13 @@
 <?php
 
+/** Thanks to www.github.com/brokiem/SimpleLay */
+
 declare(strict_types=1);
 
 namespace DavyCraft648\MCFurniture\utils;
 
 use DavyCraft648\MCFurniture\block\BarStool;
 use DavyCraft648\MCFurniture\block\Chair;
-use DavyCraft648\MCFurniture\Main;
 use pocketmine\block\Block;
 use pocketmine\entity\Entity;
 use pocketmine\network\mcpe\protocol\AddActorPacket;
@@ -19,7 +20,6 @@ use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataFlags;
 use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataProperties;
 use pocketmine\network\mcpe\protocol\types\entity\LongMetadataProperty;
 use pocketmine\network\mcpe\protocol\types\entity\PropertySyncData;
-use pocketmine\network\mcpe\protocol\types\inventory\stackrequest\ItemStackRequestActionType;
 use pocketmine\player\Player;
 use pocketmine\Server;
 use pocketmine\world\Position;
@@ -35,16 +35,13 @@ class SitUtils
     }
 
     public static function unsetSit(Player $player): void {
-        $pk1 = new RemoveActorPacket();
-        $pk1->actorUniqueId = self::$sittingData[strtolower($player->getName())]['eid'];
+		$pk1 = RemoveActorPacket::create(self::$sittingData[strtolower($player->getName())]['eid']);
 
-        $pk = new SetActorLinkPacket();
-        $pk->link = new EntityLink(self::$sittingData[strtolower($player->getName())]['eid'], $player->getId(), EntityLink::TYPE_REMOVE, true, true);
-
+		$pk = SetActorLinkPacket::create(new EntityLink(self::$sittingData[strtolower($player->getName())]['eid'], $player->getId(), EntityLink::TYPE_REMOVE, true, true));
         unset(self::$sittingData[strtolower($player->getName())]);
 
         $player->getNetworkProperties()->setGenericFlag(EntityMetadataFlags::RIDING, false);
-        $player->sendMessage("Kamu sudah tidak duduk");
+        $player->sendMessage("§rYou are no longer sitting");
 
         foreach (Server::getInstance()->getOnlinePlayers() as $viewer){
             $viewer->getNetworkSession()->sendDataPacket($pk1);
@@ -61,20 +58,20 @@ class SitUtils
 
         foreach (self::$sittingData as $playerName => $data) {
             if ($pos->equals($data['pos'])) {
-                $player->sendMessage("Tempat ini telah terisi player lain");
+                $player->sendMessage("this seat is occupied");
                 return;
             }
         }
 
         if (self::isSitting($player)) {
-            $player->sendMessage("kamu sudah duduk");
+            $player->sendMessage("You are already sitting!");
             return;
         }
 
         self::setSit($player, Server::getInstance()->getOnlinePlayers(), new Position($pos->x, $pos->y, $pos->z, Server::getInstance()->getWorldManager()->getWorldByName($player->getWorld()->getFolderName())));
 
-        $player->sendMessage("kamu sedang duduk!");
-        $player->sendTip("sneak untuk berdiri");
+        $player->sendMessage("You are sitting");
+        $player->sendTip("Sneak to stand");
     }
 
     public static function setSit(Player $player, array $viewers, Position $pos, ?int $eid = null): void {
@@ -82,19 +79,25 @@ class SitUtils
             $eid = Entity::nextRuntimeId();
         }
 
-        $pk = new AddActorPacket();
-        $pk->actorRuntimeId = $eid;
-        $pk->actorUniqueId = $eid;
-        $pk->type = EntityIds::WOLF;
+		$pk = AddActorPacket::create(
+			$eid,
+			$eid,
+			EntityIds::WOLF,
+			$pos->asVector3(),
+			null,
+			0.0,
+			0.0,
+			0.0,
+			0.0,
+			[],
+			[EntityMetadataProperties::FLAGS => new LongMetadataProperty(1 << EntityMetadataFlags::IMMOBILE | 1 << EntityMetadataFlags::SILENT | 1 << EntityMetadataFlags::INVISIBLE)],
+			new PropertySyncData([], []),
+			[]
+		);
 
-        $pk->position = $pos->asVector3();
-        $pk->metadata = [
-            EntityMetadataProperties::FLAGS => new LongMetadataProperty(1 << EntityMetadataFlags::IMMOBILE | 1 << EntityMetadataFlags::SILENT | 1 << EntityMetadataFlags::INVISIBLE),
-        ];
-        $pk->syncedProperties = new PropertySyncData([], []);
-
-        $link = new SetActorLinkPacket();
-        $link->link = new EntityLink($eid, $player->getId(), EntityLink::TYPE_RIDER, true, true);
+		$link = SetActorLinkPacket::create(
+			new EntityLink($eid, $player->getId(), EntityLink::TYPE_RIDER, true, true)
+		);
         $player->getNetworkProperties()->setGenericFlag(EntityMetadataFlags::RIDING, true);
 
         foreach ($viewers as $viewer){
@@ -116,27 +119,16 @@ class SitUtils
         return in_array(strtolower($player->getName()), self::$toggleSit, true);
     }
 
-    public static function unsetToggleSit(Player $player): void {
-        unset(self::$toggleSit[strtolower($player->getName())]);
-
-        $player->sendMessage("You have enabled tap-on-block sit");
-    }
-
-    public static function setToggleSit(Player $player): void {
-        self::$toggleSit[] = strtolower($player->getName());
-
-        $player->sendMessage("You have disabled tap-on-block sit!");
-    }
-
     public static function optimizeRotation(Player $player): void {
-        $pk = new MoveActorAbsolutePacket();
-        $pk->position = self::$sittingData[strtolower($player->getName())]['pos'];
-        $pk->actorRuntimeId = self::$sittingData[strtolower($player->getName())]['eid'];
-        $pk->pitch = $player->getLocation()->getPitch();
-        $pk->yaw = $player->getLocation()->getYaw();
-        $pk->headYaw = $player->getLocation()->getYaw();
+	    $pk = MoveActorAbsolutePacket::create(
+		    self::$sittingData[strtolower($player->getName())]['eid'],
+		    self::$sittingData[strtolower($player->getName())]['pos'],
+		    $player->getLocation()->getPitch(),
+		    $player->getLocation()->getYaw(),
+		    $player->getLocation()->getYaw(),
+		    0
+	    );
 
-//        Server::getInstance()->broadcastPackets(Server::getInstance()->getOnlinePlayers(), [$pk]);
         foreach (Server::getInstance()->getOnlinePlayers() as $viewer){
             $viewer->getNetworkSession()->sendDataPacket($pk);
         }

@@ -6,7 +6,6 @@ namespace DavyCraft648\MCFurniture\block;
 use customiesdevs\customies\block\permutations\{BlockProperty, Permutation};
 use pocketmine\block\{Block, Transparent, utils\HorizontalFacingTrait};
 use pocketmine\data\bedrock\block\{BlockStateNames, convert\BlockStateReader, convert\BlockStateWriter};
-use DavyCraft648\MCFurniture\Main;
 use DavyCraft648\MCFurniture\utils\SitUtils;
 use pocketmine\data\runtime\RuntimeDataDescriber;
 use pocketmine\item\Item;

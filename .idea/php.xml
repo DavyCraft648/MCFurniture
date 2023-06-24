@@ -12,8 +12,7 @@
   </component>
   <component name="PhpIncludePathManager">
     <include_path>
-      <path value="$PROJECT_DIR$/../../../PMMPLibs/pm5-ng" />
-      <path value="$PROJECT_DIR$/../../../Customies2/plugins/Customies" />
+      <path value="$PROJECT_DIR$/../../../../PMMP API" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
@@ -90,10 +89,8 @@
       <extension name="readline" enabled="false" />
       <extension name="recode" enabled="false" />
       <extension name="redis" enabled="false" />
-      <extension name="relay" enabled="false" />
       <extension name="rrd" enabled="false" />
       <extension name="shmop" enabled="false" />
-      <extension name="snappy" enabled="false" />
       <extension name="snmp" enabled="false" />
       <extension name="soap" enabled="false" />
       <extension name="sqlsrv" enabled="false" />

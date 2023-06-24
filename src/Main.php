@@ -8,7 +8,6 @@ use customiesdevs\customies\item\CreativeInventoryInfo;
 use DavyCraft648\MCFurniture\block\{BarStool, Basin, Bath, BedsideCabinet, Bin, Blinds, Cabinet, Candle, CeilingLight,
 	Chair, Chimney, ChristmasTree, DigitalClock, FairyLight, Lamp, StoneCabinet, Table, WallCabinet};
 use pocketmine\block\{BlockBreakInfo, BlockIdentifier, BlockTypeInfo};
-use DavyCraft648\MCFurniture\utils\SitUtils;
 use pocketmine\math\Vector3;
 use pocketmine\resourcepacks\ZippedResourcePack;
 use Symfony\Component\Filesystem\Path;
