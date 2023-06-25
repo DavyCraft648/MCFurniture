@@ -8,22 +8,24 @@ use customiesdevs\customies\entity\CustomiesEntityFactory;
 use customiesdevs\customies\item\CreativeInventoryInfo;
 use DavyCraft648\MCFurniture\block\{BarStool, Basin, Bath, BedsideCabinet, Bin, Blinds, Cabinet, Candle, CeilingLight,
 	Chair, Chimney, ChristmasTree, DigitalClock, FairyLight, Lamp, StoneCabinet, Table, WallCabinet};
-use pocketmine\block\{BlockBreakInfo, BlockIdentifier, BlockTypeInfo};
 use DavyCraft648\MCFurniture\entity\SitEntity;
+use pocketmine\block\{BlockBreakInfo, BlockIdentifier, BlockTypeInfo};
 use pocketmine\math\Vector3;
+use pocketmine\plugin\PluginBase;
 use pocketmine\resourcepacks\ZippedResourcePack;
+use ReflectionProperty;
 use Symfony\Component\Filesystem\Path;
 use function array_merge;
 use function str_replace;
 
-class Main extends \pocketmine\plugin\PluginBase{
+class Main extends PluginBase{
 
 	protected function onEnable() : void{
 		$this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
 		$this->saveResource("MCFurniture v1.0.2.mcpack");
 		$rpManager = $this->getServer()->getResourcePackManager();
 		$rpManager->setResourceStack(array_merge($rpManager->getResourceStack(), [new ZippedResourcePack(Path::join($this->getDataFolder(), "MCFurniture v1.0.2.mcpack"))]));
-		(new \ReflectionProperty($rpManager, "serverForceResources"))->setValue($rpManager, true);
+		(new ReflectionProperty($rpManager, "serverForceResources"))->setValue($rpManager, true);
 
 		// $this->getServer()->getPluginManager()->registerEvent(PlayerInteractEvent::class, function(PlayerInteractEvent $event) : void{
 		// 	$event->getPlayer()->sendMessage(GlobalBlockStateHandlers::getSerializer()->serialize($event->getBlock()->getStateId())->toNbt()->toString());
