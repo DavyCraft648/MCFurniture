@@ -6,6 +6,7 @@ namespace DavyCraft648\MCFurniture\block;
 use customiesdevs\customies\block\permutations\{BlockProperty, Permutation};
 use pocketmine\block\{Block, utils\HorizontalFacingTrait};
 use pocketmine\data\bedrock\block\{BlockStateNames, convert\BlockStateReader, convert\BlockStateWriter};
+use DavyCraft648\MCFurniture\utils\SitUtils;
 use pocketmine\data\runtime\RuntimeDataDescriber;
 use pocketmine\item\{Item, ItemTypeIds, VanillaItems};
 use pocketmine\math\Vector3;
@@ -194,7 +195,7 @@ class Bath extends \pocketmine\block\Transparent implements \customiesdevs\custo
 				$returnedItems[] = VanillaItems::WATER_BUCKET();
 				return true;
 			}
-			//TODO: sit
+			return SitUtils::sit($player, $this, $this->position->add(0.5, 0.9, 0.5));
 		}elseif($item->getTypeId() === ItemTypeIds::WATER_BUCKET){
 			$this->position->getWorld()->setBlock($this->position, $this->setFilled());
 			$item->pop();

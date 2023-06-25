@@ -11,9 +11,6 @@ use pocketmine\player\Player;
 class BarStool extends \pocketmine\block\Transparent{
 
 	public function onInteract(Item $item, int $face, Vector3 $clickVector, ?Player $player = null, array &$returnedItems = []) : bool{
-		if(!SitUtils::isSitting($player)){
-			SitUtils::sit($player, $this);
-		}
-		return false;
+		return SitUtils::sit($player, $this, $this->position->add(0.5, 1.8, 0.5), false);
 	}
 }
