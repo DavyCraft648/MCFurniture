@@ -4,10 +4,12 @@ declare(strict_types=1);
 namespace DavyCraft648\MCFurniture;
 
 use customiesdevs\customies\block\{CustomiesBlockFactory, Material, Model};
+use customiesdevs\customies\entity\CustomiesEntityFactory;
 use customiesdevs\customies\item\CreativeInventoryInfo;
 use DavyCraft648\MCFurniture\block\{BarStool, Basin, Bath, BedsideCabinet, Bin, Blinds, Cabinet, Candle, CeilingLight,
 	Chair, Chimney, ChristmasTree, DigitalClock, FairyLight, Lamp, StoneCabinet, Table, WallCabinet};
 use pocketmine\block\{BlockBreakInfo, BlockIdentifier, BlockTypeInfo};
+use DavyCraft648\MCFurniture\entity\SitEntity;
 use pocketmine\math\Vector3;
 use pocketmine\resourcepacks\ZippedResourcePack;
 use Symfony\Component\Filesystem\Path;
@@ -18,14 +20,16 @@ class Main extends \pocketmine\plugin\PluginBase{
 
 	protected function onEnable() : void{
 		$this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
-		$this->saveResource("MCFurniture v1.0.1.mcpack");
+		$this->saveResource("MCFurniture v1.0.2.mcpack");
 		$rpManager = $this->getServer()->getResourcePackManager();
-		$rpManager->setResourceStack(array_merge($rpManager->getResourceStack(), [new ZippedResourcePack(Path::join($this->getDataFolder(), "MCFurniture v1.0.1.mcpack"))]));
+		$rpManager->setResourceStack(array_merge($rpManager->getResourceStack(), [new ZippedResourcePack(Path::join($this->getDataFolder(), "MCFurniture v1.0.2.mcpack"))]));
 		(new \ReflectionProperty($rpManager, "serverForceResources"))->setValue($rpManager, true);
 
 		// $this->getServer()->getPluginManager()->registerEvent(PlayerInteractEvent::class, function(PlayerInteractEvent $event) : void{
 		// 	$event->getPlayer()->sendMessage(GlobalBlockStateHandlers::getSerializer()->serialize($event->getBlock()->getStateId())->toNbt()->toString());
 		// }, EventPriority::NORMAL, $this);
+
+		CustomiesEntityFactory::getInstance()->registerEntity(SitEntity::class, "mcfurniture:sit");
 
 		CustomiesBlockFactory::getInstance()->registerBlock(
 			static fn(int $id) => new Basin(new BlockIdentifier($id), "Basin", new BlockTypeInfo(new BlockBreakInfo(2))),

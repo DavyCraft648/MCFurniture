@@ -9,6 +9,7 @@ use pocketmine\block\{Block, Transparent, utils\HorizontalFacingTrait};
 use pocketmine\data\bedrock\block\{BlockStateNames, convert\BlockStateReader, convert\BlockStateWriter};
 use pocketmine\data\runtime\RuntimeDataDescriber;
 use pocketmine\item\Item;
+use pocketmine\math\Facing;
 use pocketmine\math\Vector3;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\player\Player;
@@ -100,10 +101,12 @@ class Chair extends Transparent implements \customiesdevs\customies\block\permut
 	}
 
 	public function onInteract(Item $item, int $face, Vector3 $clickVector, ?Player $player = null, array &$returnedItems = []) : bool{
-		if(!SitUtils::isSitting($player)){
-			SitUtils::sit($player, $this);
-		}
-		return false;
+		return SitUtils::sit($player, $this, $this->position->add(0.5, 1.65, 0.5), match($this->getFacing()){
+			Facing::NORTH => 0,
+			Facing::SOUTH => 180,
+			Facing::WEST => 270,
+			Facing::EAST => 90,
+		});
 	}
 
 	protected function describeBlockOnlyState(RuntimeDataDescriber $w) : void{
