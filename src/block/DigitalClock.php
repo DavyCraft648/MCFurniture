@@ -29,16 +29,16 @@ class DigitalClock extends Transparent implements \customiesdevs\customies\block
 		return [
 			(new Permutation("q.block_property('mcfurniture:clock_time') == 0"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.clock_0600")),
+					->setString("identifier", "geometry.clock_0600")),
 			(new Permutation("q.block_property('mcfurniture:clock_time') == 1"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.clock_1200")),
+					->setString("identifier", "geometry.clock_1200")),
 			(new Permutation("q.block_property('mcfurniture:clock_time') == 2"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.clock_1800")),
+					->setString("identifier", "geometry.clock_1800")),
 			(new Permutation("q.block_property('mcfurniture:clock_time') == 3"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.clock_2400")),
+					->setString("identifier", "geometry.clock_2400")),
 			(new Permutation("q.block_property('facing_direction') == 2"))
 				->withComponent("minecraft:transformation", CompoundTag::create()
 					->setInt("RX", 0)
@@ -49,11 +49,7 @@ class DigitalClock extends Transparent implements \customiesdevs\customies\block
 					->setFloat("SZ", 1)
 					->setFloat("TX", 0)
 					->setFloat("TY", 0)
-					->setFloat("TZ", 0))
-			/*->downgradeComponent(ProtocolInfo::PROTOCOL_1_19_80, "minecraft:transformation", "minecraft:rotation", CompoundTag::create()
-				->setFloat("x", 0)
-				->setFloat("y", 180)
-				->setFloat("z", 0))*/,
+					->setFloat("TZ", 0)),
 			(new Permutation("q.block_property('facing_direction') == 3"))
 				->withComponent("minecraft:transformation", CompoundTag::create()
 					->setInt("RX", 0)
@@ -64,11 +60,7 @@ class DigitalClock extends Transparent implements \customiesdevs\customies\block
 					->setFloat("SZ", 1)
 					->setFloat("TX", 0)
 					->setFloat("TY", 0)
-					->setFloat("TZ", 0))
-			/*->downgradeComponent(ProtocolInfo::PROTOCOL_1_19_80, "minecraft:transformation", "minecraft:rotation", CompoundTag::create()
-				->setFloat("x", 0)
-				->setFloat("y", 0)
-				->setFloat("z", 0))*/,
+					->setFloat("TZ", 0)),
 			(new Permutation("q.block_property('facing_direction') == 4"))
 				->withComponent("minecraft:transformation", CompoundTag::create()
 					->setInt("RX", 0)
@@ -79,11 +71,7 @@ class DigitalClock extends Transparent implements \customiesdevs\customies\block
 					->setFloat("SZ", 1)
 					->setFloat("TX", 0)
 					->setFloat("TY", 0)
-					->setFloat("TZ", 0))
-			/*->downgradeComponent(ProtocolInfo::PROTOCOL_1_19_80, "minecraft:transformation", "minecraft:rotation", CompoundTag::create()
-				->setFloat("x", 0)
-				->setFloat("y", 270)
-				->setFloat("z", 0))*/,
+					->setFloat("TZ", 0)),
 			(new Permutation("q.block_property('facing_direction') == 5"))
 				->withComponent("minecraft:transformation", CompoundTag::create()
 					->setInt("RX", 0)
@@ -95,10 +83,6 @@ class DigitalClock extends Transparent implements \customiesdevs\customies\block
 					->setFloat("TX", 0)
 					->setFloat("TY", 0)
 					->setFloat("TZ", 0))
-			/*->downgradeComponent(ProtocolInfo::PROTOCOL_1_19_80, "minecraft:transformation", "minecraft:rotation", CompoundTag::create()
-				->setFloat("x", 0)
-				->setFloat("y", 90)
-				->setFloat("z", 0))*/,
 		];
 	}
 

@@ -38,11 +38,7 @@ class Cabinet extends \pocketmine\block\Transparent implements \customiesdevs\cu
 					->setFloat("SZ", 1)
 					->setFloat("TX", 0)
 					->setFloat("TY", 0)
-					->setFloat("TZ", 0))
-			/*->downgradeComponent(ProtocolInfo::PROTOCOL_1_19_80, "minecraft:transformation", "minecraft:rotation", CompoundTag::create()
-				->setFloat("x", 0)
-				->setFloat("y", 180)
-				->setFloat("z", 0))*/,
+					->setFloat("TZ", 0)),
 			(new Permutation("q.block_property('facing_direction') == 3"))
 				->withComponent("minecraft:transformation", CompoundTag::create()
 					->setInt("RX", 0)
@@ -53,11 +49,7 @@ class Cabinet extends \pocketmine\block\Transparent implements \customiesdevs\cu
 					->setFloat("SZ", 1)
 					->setFloat("TX", 0)
 					->setFloat("TY", 0)
-					->setFloat("TZ", 0))
-			/*->downgradeComponent(ProtocolInfo::PROTOCOL_1_19_80, "minecraft:transformation", "minecraft:rotation", CompoundTag::create()
-				->setFloat("x", 0)
-				->setFloat("y", 0)
-				->setFloat("z", 0))*/,
+					->setFloat("TZ", 0)),
 			(new Permutation("q.block_property('facing_direction') == 4"))
 				->withComponent("minecraft:transformation", CompoundTag::create()
 					->setInt("RX", 0)
@@ -68,11 +60,7 @@ class Cabinet extends \pocketmine\block\Transparent implements \customiesdevs\cu
 					->setFloat("SZ", 1)
 					->setFloat("TX", 0)
 					->setFloat("TY", 0)
-					->setFloat("TZ", 0))
-			/*->downgradeComponent(ProtocolInfo::PROTOCOL_1_19_80, "minecraft:transformation", "minecraft:rotation", CompoundTag::create()
-				->setFloat("x", 0)
-				->setFloat("y", 270)
-				->setFloat("z", 0))*/,
+					->setFloat("TZ", 0)),
 			(new Permutation("q.block_property('facing_direction') == 5"))
 				->withComponent("minecraft:transformation", CompoundTag::create()
 					->setInt("RX", 0)
@@ -83,17 +71,13 @@ class Cabinet extends \pocketmine\block\Transparent implements \customiesdevs\cu
 					->setFloat("SZ", 1)
 					->setFloat("TX", 0)
 					->setFloat("TY", 0)
-					->setFloat("TZ", 0))
-			/*->downgradeComponent(ProtocolInfo::PROTOCOL_1_19_80, "minecraft:transformation", "minecraft:rotation", CompoundTag::create()
-				->setFloat("x", 0)
-				->setFloat("y", 90)
-				->setFloat("z", 0))*/,
+					->setFloat("TZ", 0)),
 			(new Permutation("q.block_property('open_bit') == false"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.cabinet")),
+					->setString("identifier", "geometry.cabinet")),
 			(new Permutation("q.block_property('open_bit') == true"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.cabinetopen")),
+					->setString("identifier", "geometry.cabinetopen")),
 		];
 	}
 

@@ -27,12 +27,12 @@ class CeilingLight extends Transparent implements \customiesdevs\customies\block
 		return [
 			(new Permutation("q.block_property('lit') == true"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.ceiling_light_on"))
+					->setString("identifier", "geometry.ceiling_light_on"))
 				->withComponent("minecraft:light_emission", CompoundTag::create()
 					->setByte("emission", 15)),
 			(new Permutation("q.block_property('lit') == false"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.ceiling_light_off"))
+					->setString("identifier", "geometry.ceiling_light_off"))
 				->withComponent("minecraft:light_emission", CompoundTag::create()
 					->setByte("emission", 0))
 		];

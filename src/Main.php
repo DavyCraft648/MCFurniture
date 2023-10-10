@@ -20,9 +20,9 @@ class Main extends \pocketmine\plugin\PluginBase{
 
 	protected function onEnable() : void{
 		$this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
-		$this->saveResource("MCFurniture v1.0.2.mcpack");
+		$this->saveResource("MCFurniture v1.0.3.mcpack");
 		$rpManager = $this->getServer()->getResourcePackManager();
-		$rpManager->setResourceStack(array_merge($rpManager->getResourceStack(), [new ZippedResourcePack(Path::join($this->getDataFolder(), "MCFurniture v1.0.2.mcpack"))]));
+		$rpManager->setResourceStack(array_merge($rpManager->getResourceStack(), [new ZippedResourcePack(Path::join($this->getDataFolder(), "MCFurniture v1.0.3.mcpack"))]));
 		(new \ReflectionProperty($rpManager, "serverForceResources"))->setValue($rpManager, true);
 
 		// $this->getServer()->getPluginManager()->registerEvent(PlayerInteractEvent::class, function(PlayerInteractEvent $event) : void{

@@ -23,10 +23,10 @@ class Chimney extends \pocketmine\block\Transparent implements \customiesdevs\cu
 		return [
 			(new Permutation("q.block_property('mcfurniture:bottom_part') == false"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.chimney_top")),
+					->setString("identifier", "geometry.chimney_top")),
 			(new Permutation("q.block_property('mcfurniture:bottom_part') == true"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.chimney_bottom"))
+					->setString("identifier", "geometry.chimney_bottom"))
 		];
 	}
 

@@ -38,11 +38,7 @@ class Bath extends \pocketmine\block\Transparent implements \customiesdevs\custo
 					->setFloat("SZ", 1)
 					->setFloat("TX", 0)
 					->setFloat("TY", 0)
-					->setFloat("TZ", 0))
-			/*->downgradeComponent(ProtocolInfo::PROTOCOL_1_19_80, "minecraft:transformation", "minecraft:rotation", CompoundTag::create()
-				->setFloat("x", 0)
-				->setFloat("y", 180)
-				->setFloat("z", 0))*/,
+					->setFloat("TZ", 0)),
 			(new Permutation("q.block_property('facing_direction') == 3 && q.block_property('mcfurniture:filled') == false"))
 				->withComponent("minecraft:transformation", CompoundTag::create()
 					->setInt("RX", 0)
@@ -53,11 +49,7 @@ class Bath extends \pocketmine\block\Transparent implements \customiesdevs\custo
 					->setFloat("SZ", 1)
 					->setFloat("TX", 0)
 					->setFloat("TY", 0)
-					->setFloat("TZ", 0))
-			/*->downgradeComponent(ProtocolInfo::PROTOCOL_1_19_80, "minecraft:transformation", "minecraft:rotation", CompoundTag::create()
-				->setFloat("x", 0)
-				->setFloat("y", 0)
-				->setFloat("z", 0))*/,
+					->setFloat("TZ", 0)),
 			(new Permutation("q.block_property('facing_direction') == 4 && q.block_property('mcfurniture:filled') == false"))
 				->withComponent("minecraft:transformation", CompoundTag::create()
 					->setInt("RX", 0)
@@ -68,11 +60,7 @@ class Bath extends \pocketmine\block\Transparent implements \customiesdevs\custo
 					->setFloat("SZ", 1)
 					->setFloat("TX", 0)
 					->setFloat("TY", 0)
-					->setFloat("TZ", 0))
-			/*->downgradeComponent(ProtocolInfo::PROTOCOL_1_19_80, "minecraft:transformation", "minecraft:rotation", CompoundTag::create()
-				->setFloat("x", 0)
-				->setFloat("y", 270)
-				->setFloat("z", 0))*/,
+					->setFloat("TZ", 0)),
 			(new Permutation("q.block_property('facing_direction') == 5 && q.block_property('mcfurniture:filled') == false"))
 				->withComponent("minecraft:transformation", CompoundTag::create()
 					->setInt("RX", 0)
@@ -83,11 +71,7 @@ class Bath extends \pocketmine\block\Transparent implements \customiesdevs\custo
 					->setFloat("SZ", 1)
 					->setFloat("TX", 0)
 					->setFloat("TY", 0)
-					->setFloat("TZ", 0))
-			/*->downgradeComponent(ProtocolInfo::PROTOCOL_1_19_80, "minecraft:transformation", "minecraft:rotation", CompoundTag::create()
-				->setFloat("x", 0)
-				->setFloat("y", 90)
-				->setFloat("z", 0))*/,
+					->setFloat("TZ", 0)),
 			(new Permutation("q.block_property('facing_direction') == 2 && q.block_property('mcfurniture:filled') == true"))
 				->withComponent("minecraft:transformation", CompoundTag::create()
 					->setInt("RX", 0)
@@ -98,11 +82,7 @@ class Bath extends \pocketmine\block\Transparent implements \customiesdevs\custo
 					->setFloat("SZ", 1)
 					->setFloat("TX", 0)
 					->setFloat("TY", 0)
-					->setFloat("TZ", 0))
-			/*->downgradeComponent(ProtocolInfo::PROTOCOL_1_19_80, "minecraft:transformation", "minecraft:rotation", CompoundTag::create()
-				->setFloat("x", 0)
-				->setFloat("y", 180)
-				->setFloat("z", 0))*/,
+					->setFloat("TZ", 0)),
 			(new Permutation("q.block_property('facing_direction') == 3 && q.block_property('mcfurniture:filled') == true"))
 				->withComponent("minecraft:transformation", CompoundTag::create()
 					->setInt("RX", 0)
@@ -113,11 +93,7 @@ class Bath extends \pocketmine\block\Transparent implements \customiesdevs\custo
 					->setFloat("SZ", 1)
 					->setFloat("TX", 0)
 					->setFloat("TY", 0)
-					->setFloat("TZ", 0))
-			/*->downgradeComponent(ProtocolInfo::PROTOCOL_1_19_80, "minecraft:transformation", "minecraft:rotation", CompoundTag::create()
-				->setFloat("x", 0)
-				->setFloat("y", 0)
-				->setFloat("z", 0))*/,
+					->setFloat("TZ", 0)),
 			(new Permutation("q.block_property('facing_direction') == 4 && q.block_property('mcfurniture:filled') == true"))
 				->withComponent("minecraft:transformation", CompoundTag::create()
 					->setInt("RX", 0)
@@ -128,11 +104,7 @@ class Bath extends \pocketmine\block\Transparent implements \customiesdevs\custo
 					->setFloat("SZ", 1)
 					->setFloat("TX", 0)
 					->setFloat("TY", 0)
-					->setFloat("TZ", 0))
-			/*->downgradeComponent(ProtocolInfo::PROTOCOL_1_19_80, "minecraft:transformation", "minecraft:rotation", CompoundTag::create()
-				->setFloat("x", 0)
-				->setFloat("y", 270)
-				->setFloat("z", 0))*/,
+					->setFloat("TZ", 0)),
 			(new Permutation("q.block_property('facing_direction') == 5 && q.block_property('mcfurniture:filled') == true"))
 				->withComponent("minecraft:transformation", CompoundTag::create()
 					->setInt("RX", 0)
@@ -143,17 +115,13 @@ class Bath extends \pocketmine\block\Transparent implements \customiesdevs\custo
 					->setFloat("SZ", 1)
 					->setFloat("TX", 0)
 					->setFloat("TY", 0)
-					->setFloat("TZ", 0))
-			/*->downgradeComponent(ProtocolInfo::PROTOCOL_1_19_80, "minecraft:transformation", "minecraft:rotation", CompoundTag::create()
-				->setFloat("x", 0)
-				->setFloat("y", 90)
-				->setFloat("z", 0))*/,
+					->setFloat("TZ", 0)),
 			(new Permutation("q.block_property('mcfurniture:filled') == false"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.bath")),
+					->setString("identifier", "geometry.bath")),
 			(new Permutation("q.block_property('mcfurniture:filled') == true"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.bath_filled")),
+					->setString("identifier", "geometry.bath_filled")),
 		];
 	}
 

@@ -33,52 +33,52 @@ class Table extends Transparent implements \customiesdevs\customies\block\permut
 		return [
 			(new Permutation("query.block_property('mcfurniture:connected_north') == true && query.block_property('mcfurniture:connected_south') == false && query.block_property('mcfurniture:connected_west') == false && query.block_property('mcfurniture:connected_east') == false"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.table2")),
+					->setString("identifier", "geometry.table2")),
 			(new Permutation("query.block_property('mcfurniture:connected_north') == false && query.block_property('mcfurniture:connected_south') == true && query.block_property('mcfurniture:connected_west') == false && query.block_property('mcfurniture:connected_east') == false"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.table3")),
+					->setString("identifier", "geometry.table3")),
 			(new Permutation("query.block_property('mcfurniture:connected_north') == false && query.block_property('mcfurniture:connected_south') == false && query.block_property('mcfurniture:connected_west') == true && query.block_property('mcfurniture:connected_east') == false"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.table5")),
+					->setString("identifier", "geometry.table5")),
 			(new Permutation("query.block_property('mcfurniture:connected_north') == false && query.block_property('mcfurniture:connected_south') == false && query.block_property('mcfurniture:connected_west') == false && query.block_property('mcfurniture:connected_east') == true"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.table6")),
+					->setString("identifier", "geometry.table6")),
 			(new Permutation("query.block_property('mcfurniture:connected_north') == true && query.block_property('mcfurniture:connected_south') == true && query.block_property('mcfurniture:connected_west') == false && query.block_property('mcfurniture:connected_east') == false"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.table4")),
+					->setString("identifier", "geometry.table4")),
 			(new Permutation("query.block_property('mcfurniture:connected_north') == true && query.block_property('mcfurniture:connected_south') == false && query.block_property('mcfurniture:connected_west') == true && query.block_property('mcfurniture:connected_east') == false"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.table9")), // Barat Laut
+					->setString("identifier", "geometry.table9")), // Barat Laut
 			(new Permutation("query.block_property('mcfurniture:connected_north') == true && query.block_property('mcfurniture:connected_south') == false && query.block_property('mcfurniture:connected_west') == false && query.block_property('mcfurniture:connected_east') == true"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.table8")), // Timur Laut
+					->setString("identifier", "geometry.table8")), // Timur Laut
 			(new Permutation("query.block_property('mcfurniture:connected_north') == true && query.block_property('mcfurniture:connected_south') == true && query.block_property('mcfurniture:connected_west') == true && query.block_property('mcfurniture:connected_east') == false"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.table4")),
+					->setString("identifier", "geometry.table4")),
 			(new Permutation("query.block_property('mcfurniture:connected_north') == true && query.block_property('mcfurniture:connected_south') == true && query.block_property('mcfurniture:connected_west') == true && query.block_property('mcfurniture:connected_east') == true"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.table4")),
+					->setString("identifier", "geometry.table4")),
 			(new Permutation("query.block_property('mcfurniture:connected_north') == true && query.block_property('mcfurniture:connected_south') == false && query.block_property('mcfurniture:connected_west') == true && query.block_property('mcfurniture:connected_east') == true"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.table4")),
+					->setString("identifier", "geometry.table4")),
 			(new Permutation("query.block_property('mcfurniture:connected_north') == true && query.block_property('mcfurniture:connected_south') == true && query.block_property('mcfurniture:connected_west') == false && query.block_property('mcfurniture:connected_east') == true"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.table4")),
+					->setString("identifier", "geometry.table4")),
 			(new Permutation("query.block_property('mcfurniture:connected_north') == false && query.block_property('mcfurniture:connected_south') == true && query.block_property('mcfurniture:connected_west') == true && query.block_property('mcfurniture:connected_east') == false"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.table10")), // Barat Daya
+					->setString("identifier", "geometry.table10")), // Barat Daya
 			(new Permutation("query.block_property('mcfurniture:connected_north') == false && query.block_property('mcfurniture:connected_south') == true && query.block_property('mcfurniture:connected_west') == false && query.block_property('mcfurniture:connected_east') == true"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.table7")), // Tenggara
+					->setString("identifier", "geometry.table7")), // Tenggara
 			(new Permutation("query.block_property('mcfurniture:connected_north') == false && query.block_property('mcfurniture:connected_south') == true && query.block_property('mcfurniture:connected_west') == true && query.block_property('mcfurniture:connected_east') == true"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.table4")),
+					->setString("identifier", "geometry.table4")),
 			(new Permutation("query.block_property('mcfurniture:connected_north') == false && query.block_property('mcfurniture:connected_south') == false && query.block_property('mcfurniture:connected_west') == true && query.block_property('mcfurniture:connected_east') == true"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.table4")),
+					->setString("identifier", "geometry.table4")),
 			(new Permutation("query.block_property('mcfurniture:connected_north') == true && query.block_property('mcfurniture:connected_south') == false && query.block_property('mcfurniture:connected_west') == true && query.block_property('mcfurniture:connected_east') == true"))
 				->withComponent("minecraft:geometry", CompoundTag::create()
-					->setString("value", "geometry.table4"))
+					->setString("identifier", "geometry.table4"))
 		];
 	}
 
