@@ -46,7 +46,7 @@ class SitUtils{
 
 		$world = $player->getWorld();
 		$world->broadcastPacketToViewers($player->getPosition(), RemoveActorPacket::create(self::$sittingData[$playerId = $player->getId()]['eid']));
-		$world->broadcastPacketToViewers($player->getPosition(), SetActorLinkPacket::create(new EntityLink(self::$sittingData[$playerId]['eid'], $playerId, EntityLink::TYPE_REMOVE, true, true)));
+		$world->broadcastPacketToViewers($player->getPosition(), SetActorLinkPacket::create(new EntityLink(self::$sittingData[$playerId]['eid'], $playerId, EntityLink::TYPE_REMOVE, true, true, 0.0)));
 
 		$blockPos = self::$sittingData[$playerId]["blockPos"];
 		unset(self::$sitBlocks[$world->getFolderName()][World::blockHash($blockPos->x, $blockPos->y, $blockPos->z)]);
@@ -99,7 +99,7 @@ class SitUtils{
 			[],
 			[EntityMetadataProperties::FLAGS => new LongMetadataProperty(1 << EntityMetadataFlags::IMMOBILE | 1 << EntityMetadataFlags::SILENT | 1 << EntityMetadataFlags::INVISIBLE)],
 			new PropertySyncData([], []),
-			[new EntityLink($eid, $playerId, EntityLink::TYPE_RIDER, true, true)]
+			[new EntityLink($eid, $playerId, EntityLink::TYPE_RIDER, true, true, 0.0)]
 		);
 
 		if($sessions === null){
